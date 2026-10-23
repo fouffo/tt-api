@@ -2,9 +2,12 @@ mod models;
 
 use axum::{
     Router,
-    response::{AppendHeaders, IntoResponse},
+    extract::Query,
+    response::{AppendHeaders, IntoResponse, Json},
     routing::get,
 };
+use serde_json::json;
+use std::collections::HashMap;
 
 #[tokio::main]
 async fn main() {
@@ -21,9 +24,13 @@ async fn main() {
     }
 }
 
-async fn api_handler() -> impl IntoResponse {
+async fn api_handler(Query(params): Query<HashMap<String, String>>) -> impl IntoResponse {
     (
         AppendHeaders([("content-type", "application/json")]),
-        "{\"test\":\"ok\"}",
+        Json(json!(models::NextRunsList {
+            stop_id: -1,
+            stop_name: params.get("stop").unwrap().into(),
+            next_trips: vec![],
+        })),
     )
 }
