@@ -14,7 +14,7 @@ int main() {
 
         //parameters from the watch
         std::string type;
-        std::string current_time = "2026-10-19T07:50:00Z"; //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0
+        std::string current_time = "2026-10-21T17:50:00Z"; //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0
         //IT MEANS YOU HAVE TO SCAN THE WOLE RESPONSE TO GET THE PROPER LINES AT THE PROPER TIME
 
 
