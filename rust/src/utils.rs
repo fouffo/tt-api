@@ -1,11 +1,18 @@
-use crate::models::{NextRunsList, Stop, Trip};
+use crate::models;
+use reqwest::{Response};
+use base64::prelude::*;
+use std::collections::HashMap;
 
-pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<Stop>) -> NextRunsList {
+const USR: &str = "mittmobile";
+const PSW: &str = "ecGsp.RHB3";
+const URL: &str = "https://app-tpl.tndigit.it/gtlservice";
+
+pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<models::internal::Stop>) -> models::internal::NextRunsList {
     let mut stop_lat: f32;
     let mut stop_lon: f32;
     let mut dist_min = f32::INFINITY;
     let mut dist: f32;
-    let mut next_run = NextRunsList {
+    let mut next_run = models::internal::NextRunsList {
         stop_id: u32::MAX,
         stop_name: String::new(),
         next_trips: vec![],
@@ -47,9 +54,31 @@ fn get_next_runs(){
 
 }
 
-fn get_runs_list() -> Vec<Trip> {
-
+async fn get_runs_list(station_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
+    let res = request("trips_new", HashMap::from([
+        ("stopId", &*station_id.to_string()),
+        ("type", type_str),
+        ("limit", &*station_id.to_string()),
+        ("refDateTime", time)])).await.unwrap().text().await.unwrap();
+    res
 }
+
+async fn request(path: &str, params: HashMap<&str, &str>) -> Option<Response> {
+    let mut params_str = String::from("?");
+    for pair in params {
+        params_str += &*format!("{}={}", pair.0, pair.1);
+    }
+    params_str = params_str.replace(":", "%3A");
+    let url = String::from(URL) + path + &params_str;
+    let client = reqwest::Client::new();
+    let res = client.get(url)
+        .header("Authorization", format!("Basic {}:{}", BASE64_STANDARD.encode(USR), BASE64_STANDARD.encode(PSW)))
+        .send()
+        .await.ok();
+    Option::from(res)
+}
+
+/*
 
 void get_next_runs(CURL *curl, CURLcode &result, response &chunk, std::string &type, std::string &current_time, json &next_runs_list) {
     get_runs_list(curl, result, next_runs_list["stopId"], type, current_time);
@@ -89,3 +118,4 @@ void get_next_runs(CURL *curl, CURLcode &result, response &chunk, std::string &t
         }
     }
 }
+*/

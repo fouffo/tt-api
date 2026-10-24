@@ -9,19 +9,16 @@ use axum::{
 };
 use serde_json::json;
 use std::collections::HashMap;
+use std::sync::Arc;
 
-use crate::models::{Route, Stop};
 use crate::utils::get_closest_stop;
 
-const URL: &str = "https://app-tpl.tndigit.it/gtlservice";
-const USR: &str = "mittmobile";
-const PSW: &str = "ecGsp.RHB3";
 const CLOSEST_STOPS_COUNT: u8 = 5;
 
 #[derive(Clone)]
 struct AppState {
-    all_stops: Vec<Stop>,
-    all_routes: Vec<Route>,
+    all_stops: Vec<models::internal::Stop>,
+    all_routes: Vec<models::internal::Route>,
 }
 
 #[tokio::main]
@@ -33,7 +30,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/api", get(api_handler))
-        .with_state(shared_state);
+        .with_state(Arc::new(shared_state));
 
     match tokio::net::TcpListener::bind("0.0.0.0:3000").await {
         Ok(list) => axum::serve(list, app)
@@ -48,7 +45,7 @@ async fn main() {
 
 async fn api_handler(
     Query(params): Query<HashMap<String, String>>,
-    State(state): State<AppState>,
+    State(state): State<Arc<AppState>>,
 ) -> impl IntoResponse {
     let mut lat = 46.0719f32; // These are the coordinates of
     let mut lon = 11.1196f32; // the Trento train station
@@ -87,11 +84,11 @@ async fn api_handler(
         current_time = "2026-10-19T07:50:00Z".to_string(); //to be changed with the time of the server
     }
 
-    let next_runs_list = get_closest_stop(lat, lon, state.all_stops);
+    let next_runs_list = get_closest_stop(lat, lon, state.all_stops.clone());
 
     (
         AppendHeaders([("content-type", "application/json")]),
-        Json(json!(models::NextRunsList {
+        Json(json!(models::internal::NextRunsList {
             stop_id: u32::MAX,
             stop_name: params.get("stop").unwrap().into(),
             next_trips: vec![],
