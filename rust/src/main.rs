@@ -18,6 +18,7 @@ const USR: &str = "mittmobile";
 const PSW: &str = "ecGsp.RHB3";
 const CLOSEST_STOPS_COUNT: u8 = 5;
 
+#[derive(Clone)]
 struct AppState {
     all_stops: Vec<Stop>,
     all_routes: Vec<Route>,
@@ -47,7 +48,7 @@ async fn main() {
 
 async fn api_handler(
     Query(params): Query<HashMap<String, String>>,
-    State(state): State<Arc<AppState>>,
+    State(state): State<AppState>,
 ) -> impl IntoResponse {
     let mut lat = 46.0719f32; // These are the coordinates of
     let mut lon = 11.1196f32; // the Trento train station
