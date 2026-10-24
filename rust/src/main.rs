@@ -28,6 +28,8 @@ async fn main() {
         all_routes: Vec::new(),
     };
 
+    println!("{}", utils::request("/trips_new", HashMap::from([("stopId", "21160"), ("type", "U"), ("limit", "10")])).await.unwrap().text().await.unwrap());
+
     let app = Router::new()
         .route("/api", get(api_handler))
         .with_state(Arc::new(shared_state));

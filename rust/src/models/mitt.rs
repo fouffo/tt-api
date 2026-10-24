@@ -2,52 +2,47 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Deserialize, Serialize)]
 pub struct Trip {
-
+    delay: Option<String>,
+    #[serde(rename = "directionId")]
+    direction_id: u8,
+    #[serde(rename = "indiceCorsaInLista")]
+    indice_corsa_in_lista: u8,
+    #[serde(rename = "lastEventReceivedAt")]
+    last_event_received_at: Option<String>,
+    #[serde(rename = "oraArrivoEffetttivaAFermataSelezionata")]
+    ora_arrivo_effettiva: String,
+    #[serde(rename = "oraArrivoProgrammataAFermataSelezionata")]
+    ora_arrivo_programmata: String,
+    #[serde(rename = "routeId")]
+    route_id: u16,
+    #[serde(rename = "stopLast")]
+    stop_last: u32,
+    #[serde(rename = "stopNext")]
+    stop_next: u32,
+    #[serde(rename = "totaleCorseInLista")]
+    totale_corse_in_lista: u8,
+    #[serde(rename = "tripFlag")]
+    flag: String,
+    #[serde(rename = "tripHeadsign")]
+    head_sign: String,
+    #[serde(rename = "tripId")]
+    id: String,
+    #[serde(rename = "type")]
+    type_var: String,
+    #[serde(rename = "wheelchairAccessible")]
+    accessible: bool,
+    #[serde(rename = "stopTimes")]
+    stop_times: Vec<StopTime>,
 }
 
-/*
-{
-    "delay": null,
-    "directionId": 1,
-    "indiceCorsaInLista": 0,
-    "lastEventRecivedAt": null,
-    "oraArrivoEffettivaAFermataSelezionata": "2023-01-13T11:17:00Z",
-    "oraArrivoProgrammataAFermataSelezionata": "2023-01-13T11:17:00Z",
-    "routeId": 536,
-    "stopLast": 0,
-    "stopNext": 0,
-    "stopTimes": [
-        {
-            "arrivalTime": "12:16:00",
-            "departureTime": "12:16:00",
-            "stopId": 235,
-            "stopSequence": 1,
-            "tripId": "0003804452022091220230609",
-            "type": "U"
-        },
-        {
-            "arrivalTime": "12:17:00",
-            "departureTime": "12:17:00",
-            "stopId": 231,
-            "stopSequence": 2,
-            "tripId": "0003804452022091220230609",
-            "type": "U"
-        },
-        // ...omitted...
-        {
-            "arrivalTime": "12:44:00",
-            "departureTime": "12:44:00",
-            "stopId": 284,
-            "stopSequence": 19,
-            "tripId": "0003804452022091220230609",
-            "type": "U"
-        }
-    ],
-    "totaleCorseInLista": 0,
-    "tripFlag": "TRIP_FLAG__START",
-    "tripHeadsign": "Bolghera \"S.Antonio\"",
-    "tripId": "0003804452022091220230609",
-    "type": "U",
-    "wheelchairAccessible": 1
+#[derive(Deserialize, Serialize)]
+pub struct StopTime {
+    #[serde(rename = "arrivalTime")]
+    arrival_time: String,
+    #[serde(rename = "departureTime")]
+    departure_time: String,
+    #[serde(rename = "stopId")]
+    stop_id: u16,
+    #[serde(rename = "stopSequence")]
+    stop_sequence: u8, // This MIGHT not be needed?
 }
-*/

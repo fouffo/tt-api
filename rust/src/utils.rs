@@ -50,31 +50,31 @@ fn distance(lat1: f32, lon1: f32, lat2: f32, lon2: f32) -> f32 {
             .asin()
 }
 
-fn get_next_runs(){
-
-}
-
-async fn get_runs_list(station_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
-    let res = request("trips_new", HashMap::from([
+pub async fn get_runs_list(station_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
+    let res = request("/trips_new", HashMap::from([
         ("stopId", &*station_id.to_string()),
         ("type", type_str),
-        ("limit", &*station_id.to_string()),
+        ("limit", &*limit.to_string()),
         ("refDateTime", time)])).await.unwrap().text().await.unwrap();
-    res
+    serde_json::from_str(&res).expect("Serde couldn't deserialize the run list.")
 }
 
-async fn request(path: &str, params: HashMap<&str, &str>) -> Option<Response> {
+pub async fn request(path: &str, params: HashMap<&str, &str>) -> Option<Response> {
     let mut params_str = String::from("?");
     for pair in params {
-        params_str += &*format!("{}={}", pair.0, pair.1);
+        params_str += &*format!("{}={}&", pair.0, pair.1);
     }
+    params_str.pop(); // removes that last &
     params_str = params_str.replace(":", "%3A");
     let url = String::from(URL) + path + &params_str;
+    println!("{}", url);
+    let token = format!("Basic {}", BASE64_STANDARD.encode(format!("{}:{}", USR, PSW)));
     let client = reqwest::Client::new();
     let res = client.get(url)
-        .header("Authorization", format!("Basic {}:{}", BASE64_STANDARD.encode(USR), BASE64_STANDARD.encode(PSW)))
+        .header("Authorization", token)
         .send()
-        .await.ok();
+        .await
+        .ok();
     Option::from(res)
 }
 
