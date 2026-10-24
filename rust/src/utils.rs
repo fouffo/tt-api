@@ -12,7 +12,7 @@ pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<models::internal:
     let mut stop_lon: f32;
     let mut dist_min = f32::INFINITY;
     let mut dist: f32;
-    let mut next_run = models::internal::NextRunsList {
+    let mut closest_stop = models::internal::NextRunsList {
         stop_id: u32::MAX,
         stop_name: String::new(),
         next_trips: vec![],
@@ -24,11 +24,11 @@ pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<models::internal:
         dist = distance(stop_lat, stop_lon, lat_num, lon_num);
         if dist < dist_min {
             dist_min = dist;
-            next_run.stop_id = stop.id;
-            next_run.stop_name = stop.name;
+            closest_stop.stop_id = stop.id;
+            closest_stop.stop_name = stop.name;
         }
     }
-    next_run
+    closest_stop
 }
 
 //calculates the distance between the position coords annd the stop coords
@@ -50,15 +50,6 @@ fn distance(lat1: f32, lon1: f32, lat2: f32, lon2: f32) -> f32 {
             .asin()
 }
 
-pub async fn get_runs_list(station_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
-    let res = request("/trips_new", HashMap::from([
-        ("stopId", &*station_id.to_string()),
-        ("type", type_str),
-        ("limit", &*limit.to_string()),
-        ("refDateTime", time)])).await.unwrap().text().await.unwrap();
-    serde_json::from_str(&res).expect("Serde couldn't deserialize the run list.")
-}
-
 pub async fn request(path: &str, params: HashMap<&str, &str>) -> Option<Response> {
     let mut params_str = String::from("?");
     for pair in params {
@@ -76,6 +67,29 @@ pub async fn request(path: &str, params: HashMap<&str, &str>) -> Option<Response
         .await
         .ok();
     Option::from(res)
+}
+
+pub async fn get_stop_list() -> Vec<models::mitt::Stop> {
+    let res = request("/stops", HashMap::new()).await.unwrap().text().await.unwrap();
+    serde_json::from_str(&res).expect("Serde couldn't deserialize the stop list.")
+}
+
+pub async fn get_route_list() -> Vec<models::mitt::Route> {
+    let res = request("/routes", HashMap::new()).await.unwrap().text().await.unwrap();
+    serde_json::from_str(&res).expect("Serde couldn't deserialize the route list.")
+}
+
+pub async fn get_run_list(closest_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
+    let res = request("/trips_new", HashMap::from([
+        ("stopId", &*closest_id.to_string()),
+        ("type", type_str),
+        ("limit", &*limit.to_string()),
+        ("refDateTime", time)])).await.unwrap().text().await.unwrap();
+    serde_json::from_str(&res).expect("Serde couldn't deserialize the run list.")
+}
+
+pub async fn get_next_runs(type_str: &str, current_time: &str, stop_id: String){
+
 }
 
 /*
