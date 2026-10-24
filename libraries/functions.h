@@ -9,8 +9,10 @@
 
 #ifndef CLOSEST_STOP_FUNCTIOND
 #define CLOSEST_STOP_FUNCTIOND
+    void get_closest_stops(float &lat_num, float &lon_num, json &next_runs_list, std::string &type);
     double distance(float &lat1, float &lon1, float &lat2, float &lon2);
-    void get_closest_stop(float &lat_num, float &lon_num, json &next_runs_list);
+    void order_closest_stops(json &arr);
+    void shift_stops(json &arr, int idx);
 #endif
 
 #ifndef NEXT_RUNS

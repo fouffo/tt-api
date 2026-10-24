@@ -1,3 +1,9 @@
+/*
+ *
+ * COMPILE STRING: g++ server.cpp -o server -lcurl && ./server
+ *
+ */
+
 //headers and global variables
 #include "./libraries/headers.h"
 
@@ -14,7 +20,7 @@ int main() {
 
         //parameters from the watch
         std::string type;
-        std::string current_time = "2026-10-19T07:50:00Z"; //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0
+        std::string current_time = "2026-10-26T07:50:00Z"; //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0
         //IT MEANS YOU HAVE TO SCAN THE WOLE RESPONSE TO GET THE PROPER LINES AT THE PROPER TIME
 
 
@@ -30,12 +36,17 @@ int main() {
 
 
 
-        json next_runs_list;
-        next_runs_list = {
-            {"stopId", -1},
-            {"stopName", ""},
-            {"nextTrips", json::array()}
-        };
+        json next_runs_list = json::array(); //list with all the stops and the runs
+        //initializes the closest stops
+        for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
+            next_runs_list += {
+                {"stopId", -1},
+                {"stopName", ""},
+                {"distance", -1},
+                {"nextTrips", json::array()}
+            };
+;
+        }
 
 
 
@@ -86,22 +97,23 @@ int main() {
             current_time = req.get_param_value("time");
         }
         else {
-            current_time = "2026-10-19T07:50:00Z"; //to be changed with the time of the server
+            current_time = "2026-10-25T07:50:00Z"; //to be changed with the time of the server
         }
 
 
 
 
-
         //gets the closest stop
-        get_closest_stop(lat, lon, next_runs_list);
+        get_closest_stops(lat, lon, next_runs_list, type);
 
         //gets the next five runs from that stop
-        get_next_runs(curl, result, chunk, type, current_time, next_runs_list);
+        //get_next_runs(curl, result, chunk, type, current_time, next_runs_list);
 
         //shows the stop code
-        res.set_content(to_string(next_runs_list), "text/plain");
+        res.set_content(to_string(next_runs_list), "application/json");
     });
+
+    //starts the server
     svr.listen("localhost", 1234);
 }
 
@@ -164,7 +176,8 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
             {"stopId", el["stopId"]},
             {"stopName", el["stopName"]},
             {"stopLat", el["stopLat"]},
-            {"stopLon", el["stopLon"]}
+            {"stopLon", el["stopLon"]},
+            {"type", el["type"]}
         });
     }
 }
@@ -188,33 +201,80 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
     }
 }
 
+//orders the array using a lambda on every pair of elements and their distance
+void order_closest_stops(json &arr) {
+    std::sort(arr.begin(), arr.end(),
+        [](const json &a, const json &b) {
+            return a["distance"].get<double>() < b["distance"].get<double>();
+        }
+    );
+}
 
-
-
+//shifts the closest elements to make room for the new one
+void shift_stops(json &arr, int idx) {
+    for (int x = MAX_CLOSEST_STOPS-1; x > idx; x--) {
+        arr[x]["stopId"] = arr[x-1]["stopId"];
+        arr[x]["stopName"] = arr[x-1]["stopName"];
+        arr[x]["distance"] = arr[x-1]["distance"];
+    }
+}
 
 
 
 
 //FUNCTIONS TO GET THE CLOSEST STOP
 
+//cycles all the stops
+//finds the five closest stops
+//
+//it receives an empty array of stops. it assigns every elements a stop
+//it checks if the current stop of the full list is closer than the ones we already have
+//the elems in the closest stops must be ordered according to element[distance]
+
 //gets the closest stop
-void get_closest_stop(float &lat_num, float &lon_num, json &next_runs_list) {
+void get_closest_stops(float &lat_num, float &lon_num, json &next_runs_list, std::string &type) {
     float stop_lat = 0.0f;
     float stop_lon = 0.0f;
     double dist_min = 1000000000000.0; //initialized with a number too big to be true (in meters)
-    double t = 0.0;
+    double stop_dist = 0.0;
 
-
+    int tmp = 0; //temporary variable to insert the first n stops without checking for closest
     lat_num *= PI / 180;
     lon_num *= PI /180;
+
+    std::cout << "altro ci sono " << std::endl;
     for (const auto &el : all_stops) {
+        if (el["type"] != type) continue; //skips urban stops if type = extraurbano, else opposite
+
         stop_lat = el["stopLat"].get<float>();
         stop_lon = el["stopLon"].get<float>();
-        t = distance(stop_lat, stop_lon, lat_num, lon_num);
-        if (t < dist_min) {
-            dist_min = t;
-            next_runs_list["stopId"] = el["stopId"].get<int>();
-            next_runs_list["stopName"] = el["stopName"];
+        stop_dist = distance(stop_lat, stop_lon, lat_num, lon_num);
+
+        //THERE IS AN ERROR : inserts alwaays the same stop in all the elems of the closest stops
+        std::cout << std::endl << std::endl << "---------------------ERROR LINE 253 -------------------------------" << std::endl << std::endl;
+        //the first n elements don't need to be checked for the distance
+        if (tmp < MAX_CLOSEST_STOPS) {
+            next_runs_list[tmp]["stopId"] = el["stopId"].get<int>();
+            next_runs_list[tmp]["stopName"] = el["stopName"];
+            next_runs_list[tmp]["distance"] = stop_dist;
+            tmp++;
+        }
+        //once it inserted the first elements it orders them
+        else if (tmp == MAX_CLOSEST_STOPS) {
+            std::cout << next_runs_list.dump(4) << std::endl;
+            order_closest_stops(next_runs_list);
+            tmp++;
+        }
+        //no more need to order bc it it is implicit in the insertion
+        else {
+            for (tmp = 0; tmp < MAX_CLOSEST_STOPS; tmp++) { //checks from the closest stop
+                if (stop_dist < next_runs_list[tmp]["distance"]) { //if the current stop is closer than another in inserts it and shifts the array
+                    shift_stops(next_runs_list, tmp);
+                    next_runs_list[tmp]["stopId"] = el["stopId"];
+                    next_runs_list[tmp]["stopName"] = el["stopName"];
+                    next_runs_list[tmp]["distance"] = stop_dist;
+                }
+            }
         }
     }
 }
@@ -249,44 +309,49 @@ double distance(float &lat1, float &lon1, float &lat2, float &lon2) {
 //FUNCTIONS TO GET THE NEXT RUNS FROM THE CLOSEST STOP
 
 void get_next_runs(CURL *curl, CURLcode &result, response &chunk, std::string &type, std::string &current_time, json &next_runs_list) {
-    get_runs_list(curl, result, next_runs_list["stopId"], type, current_time);
 
+    //all the trips to that stop
     json full_runs;
-    from_string_to_json(chunk, full_runs);
 
 
     //gets only the necessary data from the next runs
     int route_id = -1;
     std::string arrival_time = "";
 
-    //cycles all the runs from the stop
-    for (const auto &run : full_runs) {
+    //cycles all the n closest stops
+    for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
+        get_runs_list(curl, result, next_runs_list[x]["stopId"], type, current_time);
+        from_string_to_json(chunk, full_runs);
 
-        route_id = run["routeId"].get<int>();
-        //cycles all the routes to chech which one has the same id
-        for (const auto &route : all_routes) {
+        //cycles all the runs from the stop
+        for (const auto &run : full_runs) {
 
-            //if the id coincide it gets the data from the routes
-            if (route_id == route["routeId"].get<int>()) {
+            route_id = run["routeId"].get<int>();
+            //cycles all the routes to chech which one has the same id
+            for (const auto &route : all_routes) {
 
-                //cycles for all the stops a trip does
-                for (const auto &single_stop_data : run["stopTimes"]) {
+                //if the id coincide it gets the data from the routes
+                if (route_id == route["routeId"].get<int>()) {
 
-                    //if the stop id is the same as the one in the schedule trip it gets the scheduled arrival time
-                    if (next_runs_list["stopId"] == single_stop_data["stopId"]) {
-                        arrival_time = single_stop_data["arrivalTime"];
-                        break;
+                    //cycles for all the stops a trip does
+                    for (const auto &single_stop_data : run["stopTimes"]) {
+
+                        //if the stop id is the same as the one in the schedule trip it gets the scheduled arrival time
+                        if (next_runs_list[x]["stopId"] == single_stop_data["stopId"]) {
+                            arrival_time = single_stop_data["arrivalTime"];
+                            break;
+                        }
                     }
-                }
 
-                //builds the array
-                next_runs_list["nextTrips"].push_back({
-                    {"routeColor", route["routeColor"]},
-                    {"routeShortName", route["routeShortName"]},
-                    {"routeLongName", route["routeLongName"]},
-                    {"delay", run["delay"]},
-                    {"arrivalTime", arrival_time}
-                });
+                    //builds the array
+                    next_runs_list[x]["nextTrips"].push_back({
+                        {"routeColor", route["routeColor"]},
+                        {"routeShortName", route["routeShortName"]},
+                        {"routeLongName", route["routeLongName"]},
+                        {"delay", run["delay"]},
+                        {"arrivalTime", arrival_time}
+                    });
+                }
             }
         }
     }
