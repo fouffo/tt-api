@@ -2,7 +2,7 @@ use serde::{Serialize, Deserialize};
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Trip {
-    pub delay: Option<String>,
+    pub delay: Option<f32>,
     #[serde(rename = "directionId")]
     pub direction_id: u8,
     #[serde(rename = "indiceCorsaInLista")]

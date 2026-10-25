@@ -110,7 +110,7 @@ pub async fn get_next_runs(type_str: &str, time: &str, stop_id: u16, routes: &Ve
                         route_color: route.color.clone().unwrap_or_else(||{String::new()}),
                         route_short_name: route.short_name.clone(),
                         route_long_name: route.long_name.clone(),
-                        delay: trip.delay.clone().unwrap_or_else(||{String::new()}).into(),
+                        delay: trip.delay.clone().unwrap_or_else(||{0.0}),
                         arrival_time: arrival_time.clone()
                     }
                 );

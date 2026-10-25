@@ -13,6 +13,6 @@ pub struct Trip {
     pub route_color: String,
     pub route_short_name: String,
     pub route_long_name: String,
-    pub delay: String, // TODO: Check if this is actually a string or something else
+    pub delay: f32,
     pub arrival_time: String, // TODO: Check this too
 }
