@@ -1,4 +1,4 @@
-use crate::models;
+use crate::models::{self, internal::Trip, mitt::Route};
 use reqwest::{Response};
 use base64::prelude::*;
 use std::collections::HashMap;
@@ -7,13 +7,13 @@ const USR: &str = "mittmobile";
 const PSW: &str = "ecGsp.RHB3";
 const URL: &str = "https://app-tpl.tndigit.it/gtlservice";
 
-pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<models::internal::Stop>) -> models::internal::NextRunsList {
+pub fn get_closest_stop(lat_num: f32, lon_num: f32, stops: Vec<models::mitt::Stop>) -> models::internal::NextRunsList {
     let mut stop_lat: f32;
     let mut stop_lon: f32;
     let mut dist_min = f32::INFINITY;
     let mut dist: f32;
     let mut closest_stop = models::internal::NextRunsList {
-        stop_id: u32::MAX,
+        stop_id: u16::MAX,
         stop_name: String::new(),
         next_trips: vec![],
     };
@@ -79,57 +79,43 @@ pub async fn get_route_list() -> Vec<models::mitt::Route> {
     serde_json::from_str(&res).expect("Serde couldn't deserialize the route list.")
 }
 
-pub async fn get_run_list(closest_id: u32, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
+pub async fn get_run_list(stop_id: u16, type_str: &str, limit: u8, time: &str) -> Vec<models::mitt::Trip> {
     let res = request("/trips_new", HashMap::from([
-        ("stopId", &*closest_id.to_string()),
+        ("stopId", &*stop_id.to_string()),
         ("type", type_str),
         ("limit", &*limit.to_string()),
         ("refDateTime", time)])).await.unwrap().text().await.unwrap();
     serde_json::from_str(&res).expect("Serde couldn't deserialize the run list.")
 }
 
-pub async fn get_next_runs(type_str: &str, current_time: &str, stop_id: String){
+pub async fn get_next_runs(type_str: &str, time: &str, stop_id: u16, routes: &Vec<Route>) -> Vec<models::internal::Trip> {
+    let trips = get_run_list(stop_id, type_str, 10, time).await; // 10 is hardcoded as the limit of runs, probably not the best approach
+    let mut arrival_time = String::new();
+    let mut ret: Vec<models::internal::Trip> = vec![];
 
-}
-
-/*
-
-void get_next_runs(CURL *curl, CURLcode &result, response &chunk, std::string &type, std::string &current_time, json &next_runs_list) {
-    get_runs_list(curl, result, next_runs_list["stopId"], type, current_time);
-    //gets only the necessary data from the next runs
-    int route_id = -1;
-    std::string arrival_time = "";
-
-    //cycles all the runs from the stop
-    for (const auto &run : full_runs) {
-
-        route_id = run["routeId"].get<int>();
-        //cycles all the routes to chech which one has the same id
-        for (const auto &route : all_routes) {
-
-            //if the id coincide it gets the data from the routes
-            if (route_id == route["routeId"].get<int>()) {
-
-                //cycles for all the stops a trip does
-                for (const auto &single_stop_data : run["stopTimes"]) {
-
-                    //if the stop id is the same as the one in the schedule trip it gets the scheduled arrival time
-                    if (next_runs_list["stopId"] == single_stop_data["stopId"]) {
-                        arrival_time = single_stop_data["arrivalTime"];
+    for trip in trips {
+        let route_id = trip.route_id;
+        for route in routes {
+            if route_id == route.id {
+                for stop_time in &trip.stop_times {
+                    if stop_id == stop_time.stop_id {
+                        arrival_time = stop_time.arrival_time.clone();
                         break;
                     }
                 }
 
                 //builds the array
-                next_runs_list["nextTrips"].push_back({
-                    {"routeColor", route["routeColor"]},
-                    {"routeShortName", route["routeShortName"]},
-                    {"routeLongName", route["routeLongName"]},
-                    {"delay", run["delay"]},
-                    {"arrivalTime", arrival_time}
-                });
+                ret.push(
+                    Trip{
+                        route_color: route.color.clone().unwrap_or_else(||{String::new()}),
+                        route_short_name: route.short_name.clone(),
+                        route_long_name: route.long_name.clone(),
+                        delay: trip.delay.clone().unwrap_or_else(||{String::new()}).into(),
+                        arrival_time: arrival_time.clone()
+                    }
+                );
             }
         }
     }
+    ret
 }
-*/

@@ -11,25 +11,20 @@ use serde_json::json;
 use std::collections::HashMap;
 use std::sync::Arc;
 
-use crate::utils::get_closest_stop;
-
-const CLOSEST_STOPS_COUNT: u8 = 5;
+use crate::utils::{get_closest_stop, get_next_runs, get_route_list, get_stop_list};
 
 #[derive(Clone)]
 struct AppState {
-    all_stops: Vec<models::internal::Stop>,
-    all_routes: Vec<models::internal::Route>,
+    all_stops: Vec<models::mitt::Stop>,
+    all_routes: Vec<models::mitt::Route>,
 }
 
 #[tokio::main]
 async fn main() {
     let shared_state = AppState {
-        all_stops: Vec::new(),
-        all_routes: Vec::new(),
+        all_stops: get_stop_list().await,
+        all_routes: get_route_list().await,
     };
-
-    utils::get_stop_list().await;
-    utils::get_route_list().await;
 
     let app = Router::new()
         .route("/api", get(api_handler))
@@ -52,8 +47,8 @@ async fn api_handler(
 ) -> impl IntoResponse {
     let mut lat = 46.0719f32; // These are the coordinates of
     let mut lon = 11.1196f32; // the Trento train station
-    let mut type_var = ""; // "type" is a keyword in Rust
-    let mut current_time;
+    let type_var: &str; // "type" is a keyword in Rust
+    let current_time;
 
     //checks the latitude (default Stazione)
     if params.contains_key("lat") {
@@ -87,14 +82,12 @@ async fn api_handler(
         current_time = "2026-10-19T07:50:00Z".to_string(); //to be changed with the time of the server
     }
 
-    let next_runs_list = get_closest_stop(lat, lon, state.all_stops.clone());
+    let var_name = get_closest_stop(lat, lon, state.all_stops.clone()); // TODO: rename this
+
+    let next_runs = get_next_runs(type_var, &current_time, var_name.stop_id, &state.all_routes).await;
 
     (
         AppendHeaders([("content-type", "application/json")]),
-        Json(json!(models::internal::NextRunsList {
-            stop_id: u32::MAX,
-            stop_name: params.get("stop").unwrap().into(),
-            next_trips: vec![],
-        })),
+        Json(json!(next_runs)),
     )
 }
