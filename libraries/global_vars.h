@@ -23,6 +23,9 @@
     json all_stops = json::array();
     json all_routes = json::array();
 
+    //nomber of closest stops to look for
+    const int MAX_CLOSEST_STOPS = 3;
+
     //constants for the distance
     const double PI = 3.14159265358;
     const int R_EARTH = 6371000;
