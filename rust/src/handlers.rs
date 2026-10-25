@@ -7,14 +7,15 @@ use chrono::{DateTime, Utc};
 use std::time::SystemTime;
 use serde_json::json;
 use std::{collections::HashMap};
-use std::sync::Arc;
+use std::sync::{Arc};
+use tokio::sync::Mutex;
 
 use crate::utils::{get_closest_stop, get_next_runs};
 use crate::AppState;
 
 pub async fn api_handler(
     Query(params): Query<HashMap<String, String>>,
-    State(state): State<Arc<AppState>>, // This is the app state being passed. It stores all stops and routes
+    State(state): State<Arc<Mutex<AppState>>>, // This is the app state being passed. It stores all stops and routes
 ) -> impl IntoResponse {
     let mut lat = 46.0719f32; // These are the coordinates of
     let mut lon = 11.1196f32; // the Trento train station
@@ -57,9 +58,10 @@ pub async fn api_handler(
         current_time = val.to_string();
     }
 
-    let var_name = get_closest_stop(lat, lon, state.all_stops.clone()); // TODO: rename this
 
-    let next_runs = get_next_runs(type_var, &current_time, var_name.stop_id, &state.all_routes).await;
+    let var_name = get_closest_stop(lat, lon, state.lock().await.all_stops.clone()); // TODO: rename this
+
+    let next_runs = get_next_runs(type_var, &current_time, var_name.stop_id, &state.lock().await.all_routes.clone()).await;
 
     (
         StatusCode::OK,
@@ -69,21 +71,21 @@ pub async fn api_handler(
 }
 
 pub async fn stops_handler(
-    State(state): State<Arc<AppState>>, // This is the app state being passed. It stores all stops and routes
+    State(state): State<Arc<Mutex<AppState>>>, // This is the app state being passed. It stores all stops and routes
 ) -> impl IntoResponse {
     (
         StatusCode::OK,
         AppendHeaders([("content-type", "application/json")]),
-        Json(json!(&state.all_stops)),
+        Json(json!(state.lock().await.all_stops.clone())),
     )
 }
 
 pub async fn routes_handler(
-    State(state): State<Arc<AppState>>, // This is the app state being passed. It stores all stops and routes
+    State(state): State<Arc<Mutex<AppState>>>, // This is the app state being passed. It stores all stops and routes
 ) -> impl IntoResponse {
     (
         StatusCode::OK,
         AppendHeaders([("content-type", "application/json")]),
-        Json(json!(&&state.all_routes)),
+        Json(json!(state.lock().await.all_routes.clone())),
     )
 }
