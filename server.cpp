@@ -1,41 +1,57 @@
+/*
+ *
+ * COMPILE STRING: g++ server.cpp -o server -lcurl && ./server
+ *
+ * EDIT VARIABLES NAMES
+ * ADD COMMENTS
+ *
+*/
+
+
+
+
 //headers and global variables
 #include "./libraries/headers.h"
 
+
+
+
 //MAIN LOOP
 
-//runs the server and waits for lat and lon
 int main() {
     //init server
     httplib::Server svr;
 
-    //waits for the server to receive a lat and lon
+    //waits for the server to receive some data
     svr.Get("/api", [](const httplib::Request &req, httplib::Response &res) {
-        //vars for the request
-
-        //parameters from the watch
-        std::string type;
-        std::string current_time = "2026-10-19T07:50:00Z"; //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0
-        //IT MEANS YOU HAVE TO SCAN THE WOLE RESPONSE TO GET THE PROPER LINES AT THE PROPER TIME
-
-
+        //default variables in case the watch doesn't send some
+        //Urbano - server time - Piazza Dante Stazione Fs coords
+        std::string type = "U";
+        std::string current_time = get_current_time(); //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0; problems with legal hour (garmin)
         float lat = 46.0719f;
         float lon = 11.1196f;
 
-        //curl structures 
+        //curl structures
         CURL *curl; //curl main structure
         CURLcode result; //response code from the server
-        struct response chunk = { //contains the value curl stores in a buffer
+        struct response chunk = { //will contain the response value that curl stores in a buffer
             .memory = (char*)malloc(0),
-            .size = 0};
-
-
-
-        json next_runs_list;
-        next_runs_list = {
-            {"stopId", -1},
-            {"stopName", ""},
-            {"nextTrips", json::array()}
+            .size = 0
         };
+
+
+
+        //list with all the stops and trips
+        json next_trips_list = json::array();
+        //initializes the closest stops
+        for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
+            next_trips_list += {
+                {"stopId", -1},
+                {"stopName", ""},
+                {"distance", -1},
+                {"nextTrips", json::array()}
+            };
+        }
 
 
 
@@ -63,46 +79,34 @@ int main() {
 
 
 
-        //checks the latitude (default Stazione)
+        //checks the data in the request (if not present uses the default ones)
         if (req.has_param("lat")) {
             lat = stof(req.get_param_value("lat"));
         }
-
-        //checks the longitude (default Stazione)
         if (req.has_param("lon")) {
             lon = stof(req.get_param_value("lon"));
         }
-
-        //type of line (Urbana default)
         if (req.has_param("type")) {
             type = req.get_param_value("type");
         }
-        else {
-            type = "U";
-        }
-
-        //time of the request
         if (req.has_param("time")) {
             current_time = req.get_param_value("time");
         }
-        else {
-            current_time = "2026-10-19T07:50:00Z"; //to be changed with the time of the server
-        }
 
 
 
+        //gets the closest stops
+        get_closest_stops(lat, lon, type, next_trips_list);
 
-
-        //gets the closest stop
-        get_closest_stop(lat, lon, next_runs_list);
-
-        //gets the next five runs from that stop
-        get_next_runs(curl, result, chunk, type, current_time, next_runs_list);
+        //gets the next five trips from that stop
+        get_next_trips(curl, result, chunk, type, current_time, next_trips_list);
 
         //shows the stop code
-        res.set_content(to_string(next_runs_list), "text/plain");
+        res.set_content(to_string(next_trips_list), "application/json");
     });
-    svr.listen("localhost", 1234);
+
+    //starts the server
+    svr.listen(HOST, PORT);
 }
 
 
@@ -115,8 +119,13 @@ int main() {
 
 //BASIC FUNCTIONS
 
+//returns the current time iso 8601 (problems with legal and solar hour and time zones (maybe GMT+0???))
+std::string get_current_time() {
+    std::string t = "2026-10-26T07:50:00Z";
+    return t;
+}
+
 //gets the buffer from the curl requests and stores it into the memory chunk
-//
 void free_chunk(response &chunk) {
     free(chunk.memory);
     chunk.memory = nullptr;
@@ -164,7 +173,8 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
             {"stopId", el["stopId"]},
             {"stopName", el["stopName"]},
             {"stopLat", el["stopLat"]},
-            {"stopLon", el["stopLon"]}
+            {"stopLon", el["stopLon"]},
+            {"type", el["type"]}
         });
     }
 }
@@ -192,29 +202,49 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
 
 
 
-
-
-
 //FUNCTIONS TO GET THE CLOSEST STOP
 
 //gets the closest stop
-void get_closest_stop(float &lat_num, float &lon_num, json &next_runs_list) {
+void get_closest_stops(float &lat_num, float &lon_num, std::string &type, json &next_trips_list) {
     float stop_lat = 0.0f;
     float stop_lon = 0.0f;
     double dist_min = 1000000000000.0; //initialized with a number too big to be true (in meters)
-    double t = 0.0;
+    double stop_dist = 0.0;
 
-
+    int first_n_stops = 0; //temporary variable to insert the first n stops without checking for closest
     lat_num *= PI / 180;
-    lon_num *= PI /180;
+    lon_num *= PI / 180;
+
     for (const auto &el : all_stops) {
+        if (el["type"] != type) continue; //skips urban stops if type = extraurbano, else opposite
+
         stop_lat = el["stopLat"].get<float>();
         stop_lon = el["stopLon"].get<float>();
-        t = distance(stop_lat, stop_lon, lat_num, lon_num);
-        if (t < dist_min) {
-            dist_min = t;
-            next_runs_list["stopId"] = el["stopId"].get<int>();
-            next_runs_list["stopName"] = el["stopName"];
+        stop_dist = distance(stop_lat, stop_lon, lat_num, lon_num);
+
+        //the first n elements don't need to be checked for the distance
+        if (first_n_stops < MAX_CLOSEST_STOPS) {
+            next_trips_list[first_n_stops]["stopId"] = el["stopId"].get<int>();
+            next_trips_list[first_n_stops]["stopName"] = el["stopName"];
+            next_trips_list[first_n_stops]["distance"] = stop_dist;
+            first_n_stops++;
+        }
+        //once it inserted the first elements it orders them
+        if (first_n_stops == MAX_CLOSEST_STOPS) {
+            order_closest_stops(next_trips_list);
+            first_n_stops++;
+        }
+        //no more need to order bc it it is implicit in the insertion
+        if (first_n_stops >= MAX_CLOSEST_STOPS) {
+            for (int tmp = 0; tmp < MAX_CLOSEST_STOPS; tmp++) { //checks from the closest stop
+                if (stop_dist < next_trips_list[tmp]["distance"]) { //if the current stop is closer than another in inserts it and shifts the array
+                    shift_stops(next_trips_list, tmp);
+                    next_trips_list[tmp]["stopId"] = el["stopId"];
+                    next_trips_list[tmp]["stopName"] = el["stopName"];
+                    next_trips_list[tmp]["distance"] = stop_dist;
+                    break;
+                }
+            }
         }
     }
 }
@@ -226,6 +256,7 @@ double distance(float &lat1, float &lon1, float &lat2, float &lon2) {
 
     float delta_lat = lat1 - lat2;
     float delta_lon = lon1 - lon2;
+    //haversine formula (???)
     return 2 * R_EARTH * asin(sqrt(
                 pow(
                     sin(delta_lat / 2),
@@ -239,6 +270,23 @@ double distance(float &lat1, float &lon1, float &lat2, float &lon2) {
                 ));
 }
 
+//orders the array using a lambda on every pair of elements and their distance
+void order_closest_stops(json &arr) {
+    std::sort(arr.begin(), arr.end(),
+        [](const json &a, const json &b) {
+            return a["distance"].get<double>() < b["distance"].get<double>();
+        }
+    );
+}
+
+//shifts the closest elements to make room for the new one
+void shift_stops(json &arr, int idx) {
+    for (int x = MAX_CLOSEST_STOPS-1; x > idx; x--) {
+        arr[x]["stopId"] = arr[x-1]["stopId"];
+        arr[x]["stopName"] = arr[x-1]["stopName"];
+        arr[x]["distance"] = arr[x-1]["distance"];
+    }
+}
 
 
 
@@ -248,63 +296,69 @@ double distance(float &lat1, float &lon1, float &lat2, float &lon2) {
 
 //FUNCTIONS TO GET THE NEXT RUNS FROM THE CLOSEST STOP
 
-void get_next_runs(CURL *curl, CURLcode &result, response &chunk, std::string &type, std::string &current_time, json &next_runs_list) {
-    get_runs_list(curl, result, next_runs_list["stopId"], type, current_time);
+void get_next_trips(CURL *curl, CURLcode &result, response &chunk, std::string &type, std::string &current_time, json &next_trips_list) {
 
-    json full_runs;
-    from_string_to_json(chunk, full_runs);
+    //all the trips to that stop
+    json full_trips;
 
 
     //gets only the necessary data from the next runs
     int route_id = -1;
     std::string arrival_time = "";
 
-    //cycles all the runs from the stop
-    for (const auto &run : full_runs) {
+    //cycles all the n closest stops
+    for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
+        get_trips_list(curl, result, next_trips_list[x]["stopId"], type, current_time);
+        from_string_to_json(chunk, full_trips);
 
-        route_id = run["routeId"].get<int>();
-        //cycles all the routes to chech which one has the same id
-        for (const auto &route : all_routes) {
+        //cycles all the runs from the stop
+        for (const auto &trip : full_trips) {
 
-            //if the id coincide it gets the data from the routes
-            if (route_id == route["routeId"].get<int>()) {
+            route_id = trip["routeId"].get<int>();
+            //cycles all the routes to chech which one has the same id
+            for (const auto &route : all_routes) {
 
-                //cycles for all the stops a trip does
-                for (const auto &single_stop_data : run["stopTimes"]) {
+                //if the id coincide it gets the data from the routes
+                if (route_id == route["routeId"].get<int>()) {
 
-                    //if the stop id is the same as the one in the schedule trip it gets the scheduled arrival time
-                    if (next_runs_list["stopId"] == single_stop_data["stopId"]) {
-                        arrival_time = single_stop_data["arrivalTime"];
-                        break;
+                    //cycles for all the stops a trip does
+                    for (const auto &single_stop_data : trip["stopTimes"]) {
+
+                        //if the stop id is the same as the one in the schedule trip it gets the scheduled arrival time
+                        if (next_trips_list[x]["stopId"] == single_stop_data["stopId"]) {
+                            arrival_time = single_stop_data["arrivalTime"];
+                            break;
+                        }
                     }
-                }
 
-                //builds the array
-                next_runs_list["nextTrips"].push_back({
-                    {"routeColor", route["routeColor"]},
-                    {"routeShortName", route["routeShortName"]},
-                    {"routeLongName", route["routeLongName"]},
-                    {"delay", run["delay"]},
-                    {"arrivalTime", arrival_time}
-                });
+                    //builds the array
+                    next_trips_list[x]["nextTrips"].push_back({
+                        {"routeColor", route["routeColor"]},
+                        {"routeShortName", route["routeShortName"]},
+                        {"routeLongName", route["routeLongName"]},
+                        {"delay", trip["delay"]},
+                        {"arrivalTime", arrival_time}
+                    });
+                }
             }
         }
     }
-
-
 }
 
-void get_runs_list(CURL *curl, CURLcode &result, int code_closest, std::string &type, std::string &current_time) {
+//returns the n closest stops from the given stop
+void get_trips_list(CURL *curl, CURLcode &result, int code_closest, std::string &type, std::string &current_time) {
     //replaces ":" with "%3A" (url formatting)
     std::string::size_type pos = 0;
     while ((pos = current_time.find(':', pos)) != std::string::npos) {
         current_time.replace(pos, 1, "%3A");
         pos += 3;
     }
-    std::string new_url = URL +
-                          "/trips_new?stopId=" + std::to_string(code_closest) +
+
+    //makes the request to the server fot the next n trips from the stop
+    std::string new_url = URL + "/trips_new" +
+                          "?stopId=" + std::to_string(code_closest) +
                           "&type=" + type +
-                          "&limit=" + std::to_string(limit) +
+                          "&limit=" + std::to_string(MAX_TRIPS_PER_STOP) +
                           "&refDateTime=" + current_time;
     std::cout << new_url << std::endl;
     curl_easy_setopt(curl, CURLOPT_URL, new_url.c_str());
