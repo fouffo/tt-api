@@ -19,8 +19,8 @@
     const std::string PSW = "ecGsp.RHB3";
 
     //server variables
-    const std::string HOST = "192.168.1.11";
-    const int PORT = 1234;
+    const std::string HOST = "127.0.0.1";
+    const int PORT = 1265; //DON'T USE 1234 BECAUSE IT IS THE SAME PORT AS GARMIN CONNECT IQ SIMULATOR
 
     //vars for the api request for the stops and the routes
     char count = -1;

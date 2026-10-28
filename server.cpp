@@ -2,8 +2,9 @@
  *
  * COMPILE STRING: g++ server.cpp -o server -lcurl && ./server
  *
- * EDIT VARIABLES NAMES
- * ADD COMMENTS
+ * The server must be accessible with an https request, so to test it you must:
+ *    tailscale serve --bg http://127.0.0.1:1265
+ *    copy the address and use that to reach the server
  *
 */
 
@@ -21,7 +22,6 @@
 int main() {
     //init server
     httplib::Server svr;
-
     //waits for the server to receive some data
     svr.Get("/api", [](const httplib::Request &req, httplib::Response &res) {
         //default variables in case the watch doesn't send some
@@ -121,7 +121,7 @@ int main() {
 
 //returns the current time iso 8601 (problems with legal and solar hour and time zones (maybe GMT+0???))
 std::string get_current_time() {
-    std::string t = "2026-10-26T07:50:00Z";
+    std::string t = "2026-10-28T16:50:00Z";
     return t;
 }
 

@@ -2,57 +2,56 @@
 <debugInfo>
     <manifest filename="C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\manifest.xml"/>
     <pcToLineNum>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="1" lineNum="98" parent="globals/Buttons_handler" pc="268435460" symbol="&lt;init&gt;"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="2" lineNum="7" parent="globals/Rez" pc="268435472" symbol="&lt;init&gt;"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="3" lineNum="113" parent="globals/Traquantopassa" pc="268435492" symbol="&lt;init&gt;"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="4" lineNum="10" parent="globals/Get_next_trips_list" pc="268435504" symbol="&lt;init&gt;"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="102" parent="globals/Buttons_handler" pc="268435516" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="103" parent="globals/Buttons_handler" pc="268435518" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="104" parent="globals/Buttons_handler" pc="268435530" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="107" parent="globals/Buttons_handler" pc="268435540" symbol="onSelect"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="108" parent="globals/Buttons_handler" pc="268435542" symbol="onSelect"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="109" parent="globals/Buttons_handler" pc="268435554" symbol="onSelect"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="120" parent="globals/Traquantopassa" pc="268435556" symbol="getInitialView"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="121" parent="globals/Traquantopassa" pc="268435559" symbol="getInitialView"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="127" parent="globals/Traquantopassa" pc="268435599" symbol="getInitialView"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="8" lineNum="115" parent="globals/Traquantopassa" pc="268435632" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="8" lineNum="116" parent="globals/Traquantopassa" pc="268435634" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="9" lineNum="39" parent="globals/Get_next_trips_list" pc="268435647" symbol="onLayout"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="22" parent="globals/Get_next_trips_list" pc="268435650" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="28" parent="globals/Get_next_trips_list" pc="268435652" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="30" parent="globals/Get_next_trips_list" pc="268435664" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="31" parent="globals/Get_next_trips_list" pc="268435673" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="32" parent="globals/Get_next_trips_list" pc="268435682" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="33" parent="globals/Get_next_trips_list" pc="268435691" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="35" parent="globals/Get_next_trips_list" pc="268435700" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="36" parent="globals/Get_next_trips_list" pc="268435718" symbol="initialize"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="66" parent="globals/Get_next_trips_list" pc="268435726" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="74" parent="globals/Get_next_trips_list" pc="268435728" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="76" parent="globals/Get_next_trips_list" pc="268435743" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="78" parent="globals/Get_next_trips_list" pc="268435761" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="81" parent="globals/Get_next_trips_list" pc="268435781" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="82" parent="globals/Get_next_trips_list" pc="268435787" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="85" parent="globals/Get_next_trips_list" pc="268435817" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="86" parent="globals/Get_next_trips_list" pc="268435835" symbol="onReceive"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="42" parent="globals/Get_next_trips_list" pc="268435847" symbol="makeRequest"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="43" parent="globals/Get_next_trips_list" pc="268435850" symbol="makeRequest"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="44" parent="globals/Get_next_trips_list" pc="268435862" symbol="makeRequest"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="46" parent="globals/Get_next_trips_list" pc="268435873" symbol="makeRequest"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="52" parent="globals/Get_next_trips_list" pc="268435895" symbol="makeRequest"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="89" parent="globals/Get_next_trips_list" pc="268435931" symbol="onUpdate"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="90" parent="globals/Get_next_trips_list" pc="268435933" symbol="onUpdate"/>
-        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="94" parent="globals/Get_next_trips_list" pc="268435949" symbol="onUpdate"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="14" parent="globals/Rez/Layouts" pc="268435958" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="15" parent="globals/Rez/Layouts" pc="268435969" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="17" parent="globals/Rez/Layouts" pc="268435978" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="19" parent="globals/Rez/Layouts" pc="268436081" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="20" parent="globals/Rez/Layouts" pc="268436165" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="22" parent="globals/Rez/Layouts" pc="268436196" symbol="MainLayout"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="15" lineNum="27" parent="globals/Rez/Menus/MainMenu" pc="268436211" symbol="&lt;init&gt;"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="28" parent="globals/Rez/Menus/MainMenu" pc="268436223" symbol="initialize"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="29" parent="globals/Rez/Menus/MainMenu" pc="268436225" symbol="initialize"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="30" parent="globals/Rez/Menus/MainMenu" pc="268436237" symbol="initialize"/>
-        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="31" parent="globals/Rez/Menus/MainMenu" pc="268436282" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="1" lineNum="112" parent="globals/Buttons_handler" pc="268435460" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="2" lineNum="1402" parent="globals/Rez" pc="268435472" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="3" lineNum="127" parent="globals/Traquantopassa" pc="268435492" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="4" lineNum="25" parent="globals/Get_next_trips_list" pc="268435504" symbol="&lt;init&gt;"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="116" parent="globals/Buttons_handler" pc="268435516" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="117" parent="globals/Buttons_handler" pc="268435518" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="5" lineNum="118" parent="globals/Buttons_handler" pc="268435530" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="121" parent="globals/Buttons_handler" pc="268435540" symbol="onSelect"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="122" parent="globals/Buttons_handler" pc="268435542" symbol="onSelect"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="6" lineNum="123" parent="globals/Buttons_handler" pc="268435554" symbol="onSelect"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="134" parent="globals/Traquantopassa" pc="268435556" symbol="getInitialView"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="135" parent="globals/Traquantopassa" pc="268435559" symbol="getInitialView"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="7" lineNum="141" parent="globals/Traquantopassa" pc="268435599" symbol="getInitialView"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="8" lineNum="129" parent="globals/Traquantopassa" pc="268435632" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="8" lineNum="130" parent="globals/Traquantopassa" pc="268435634" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="9" lineNum="54" parent="globals/Get_next_trips_list" pc="268435647" symbol="onLayout"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="38" parent="globals/Get_next_trips_list" pc="268435650" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="44" parent="globals/Get_next_trips_list" pc="268435652" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="46" parent="globals/Get_next_trips_list" pc="268435664" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="47" parent="globals/Get_next_trips_list" pc="268435673" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="48" parent="globals/Get_next_trips_list" pc="268435682" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="49" parent="globals/Get_next_trips_list" pc="268435691" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="10" lineNum="51" parent="globals/Get_next_trips_list" pc="268435700" symbol="initialize"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="80" parent="globals/Get_next_trips_list" pc="268435719" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="88" parent="globals/Get_next_trips_list" pc="268435721" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="90" parent="globals/Get_next_trips_list" pc="268435736" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="92" parent="globals/Get_next_trips_list" pc="268435754" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="95" parent="globals/Get_next_trips_list" pc="268435774" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="96" parent="globals/Get_next_trips_list" pc="268435780" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="99" parent="globals/Get_next_trips_list" pc="268435810" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="11" lineNum="100" parent="globals/Get_next_trips_list" pc="268435828" symbol="onReceive"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="57" parent="globals/Get_next_trips_list" pc="268435840" symbol="makeRequest"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="58" parent="globals/Get_next_trips_list" pc="268435843" symbol="makeRequest"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="59" parent="globals/Get_next_trips_list" pc="268435855" symbol="makeRequest"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="61" parent="globals/Get_next_trips_list" pc="268435866" symbol="makeRequest"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="12" lineNum="67" parent="globals/Get_next_trips_list" pc="268435888" symbol="makeRequest"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="103" parent="globals/Get_next_trips_list" pc="268435971" symbol="onUpdate"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="104" parent="globals/Get_next_trips_list" pc="268435973" symbol="onUpdate"/>
+        <entry filename="C:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\source\\traquantopassa.mcApp.mc" id="13" lineNum="108" parent="globals/Get_next_trips_list" pc="268435989" symbol="onUpdate"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1409" parent="globals/Rez/Layouts" pc="268435998" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1410" parent="globals/Rez/Layouts" pc="268436009" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1412" parent="globals/Rez/Layouts" pc="268436018" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1414" parent="globals/Rez/Layouts" pc="268436121" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1415" parent="globals/Rez/Layouts" pc="268436205" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="14" lineNum="1417" parent="globals/Rez/Layouts" pc="268436236" symbol="MainLayout"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="15" lineNum="1422" parent="globals/Rez/Menus/MainMenu" pc="268436251" symbol="&lt;init&gt;"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="1423" parent="globals/Rez/Menus/MainMenu" pc="268436263" symbol="initialize"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="1424" parent="globals/Rez/Menus/MainMenu" pc="268436265" symbol="initialize"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="1425" parent="globals/Rez/Menus/MainMenu" pc="268436277" symbol="initialize"/>
+        <entry filename="c:\\02_PROGETTI\\PROGRAMMI\\Garmin\\traquantopassa_mc\\traquantopassa.mc\\bin\\gen\\006-B4315-00\\source\\Rez.mcgen" id="16" lineNum="1426" parent="globals/Rez/Menus/MainMenu" pc="268436322" symbol="initialize"/>
     </pcToLineNum>
     <symbolTable>
         <entry id="8388639" module="true" symbol="Graphics"/>
@@ -116,18 +115,18 @@
     <localVars>
         <entry arg="true" endPc="268435539" name="next_trips_list" stackId="1" startPc="268435516"/>
         <entry endPc="268435631" name="view" stackId="1" startPc="268435559"/>
-        <entry arg="true" endPc="268435725" name="lat_arg" stackId="1" startPc="268435650"/>
-        <entry arg="true" endPc="268435725" name="lon_arg" stackId="2" startPc="268435650"/>
-        <entry arg="true" endPc="268435725" name="type_arg" stackId="3" startPc="268435650"/>
-        <entry arg="true" endPc="268435725" name="time_arg" stackId="4" startPc="268435650"/>
-        <entry arg="true" endPc="268435846" name="responseCode" stackId="1" startPc="268435726"/>
-        <entry arg="true" endPc="268435846" name="data" stackId="2" startPc="268435726"/>
-        <entry endPc="268435929" name="options" stackId="1" startPc="268435850"/>
-        <entry arg="true" endPc="268435957" name="dc" stackId="1" startPc="268435931"/>
-        <entry arg="true" endPc="268436210" name="dc" stackId="1" startPc="268435958"/>
-        <entry endPc="268436210" name="rez_cmp_local_var_dc_getWidth" stackId="2" startPc="268435969"/>
-        <entry endPc="268436210" name="rez_cmp_local_text_1193959466" stackId="3" startPc="268435969"/>
-        <entry endPc="268436210" name="rez_cmp_local_bitmap_id_monkey" stackId="4" startPc="268435969"/>
+        <entry arg="true" endPc="268435718" name="lat_arg" stackId="1" startPc="268435650"/>
+        <entry arg="true" endPc="268435718" name="lon_arg" stackId="2" startPc="268435650"/>
+        <entry arg="true" endPc="268435718" name="type_arg" stackId="3" startPc="268435650"/>
+        <entry arg="true" endPc="268435718" name="time_arg" stackId="4" startPc="268435650"/>
+        <entry arg="true" endPc="268435839" name="responseCode" stackId="1" startPc="268435719"/>
+        <entry arg="true" endPc="268435839" name="data" stackId="2" startPc="268435719"/>
+        <entry endPc="268435969" name="options" stackId="1" startPc="268435843"/>
+        <entry arg="true" endPc="268435997" name="dc" stackId="1" startPc="268435971"/>
+        <entry arg="true" endPc="268436250" name="dc" stackId="1" startPc="268435998"/>
+        <entry endPc="268436250" name="rez_cmp_local_var_dc_getWidth" stackId="2" startPc="268436009"/>
+        <entry endPc="268436250" name="rez_cmp_local_text_1193959466" stackId="3" startPc="268436009"/>
+        <entry endPc="268436250" name="rez_cmp_local_bitmap_id_monkey" stackId="4" startPc="268436009"/>
     </localVars>
     <deviceInfo deviceVersion="3d0fb192a2cf01699aefd0f384af3f527e5885bd" partNumber="006-B4315-00"/>
     <annotations>
@@ -192,33 +191,33 @@
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435725" name="initialize" parent="Get_next_trips_list" startPc="268435650">
+        <functionEntry accessMode="public" endPc="268435718" name="initialize" parent="Get_next_trips_list" startPc="268435650">
             <param id="lat_arg"/>
             <param id="lon_arg"/>
             <param id="type_arg"/>
             <param id="time_arg"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435846" name="onReceive" parent="Get_next_trips_list" startPc="268435726">
+        <functionEntry accessMode="public" endPc="268435839" name="onReceive" parent="Get_next_trips_list" startPc="268435719">
             <param id="responseCode"/>
             <param id="data"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435930" name="makeRequest" parent="Get_next_trips_list" startPc="268435847">
+        <functionEntry accessMode="public" endPc="268435970" name="makeRequest" parent="Get_next_trips_list" startPc="268435840">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268435957" name="onUpdate" parent="Get_next_trips_list" startPc="268435931">
+        <functionEntry accessMode="public" endPc="268435997" name="onUpdate" parent="Get_next_trips_list" startPc="268435971">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436210" name="MainLayout" parent="Layouts" startPc="268435958">
+        <functionEntry accessMode="public" endPc="268436250" name="MainLayout" parent="Layouts" startPc="268435998">
             <param id="dc"/>
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436222" name="&lt;init&gt;" parent="MainMenu" startPc="268436211">
+        <functionEntry accessMode="public" endPc="268436262" name="&lt;init&gt;" parent="MainMenu" startPc="268436251">
             <documentation/>
         </functionEntry>
-        <functionEntry accessMode="public" endPc="268436327" name="initialize" parent="MainMenu" startPc="268436223">
+        <functionEntry accessMode="public" endPc="268436367" name="initialize" parent="MainMenu" startPc="268436263">
             <documentation/>
         </functionEntry>
     </functions>

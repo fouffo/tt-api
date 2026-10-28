@@ -1,3 +1,12 @@
+/*
+
+Problem: if you download the whole folder you can't compile because it uses absolute paths to my compiler
+(yes, you have full access to my file system structure)
+
+
+*/
+
+
 using Toybox.Application;
 using Toybox.Communications;
 using Toybox.Graphics;
@@ -9,8 +18,9 @@ using Toybox.PersistedContent;
 
 class Get_next_trips_list extends WatchUi.View {
 
-    // Sostituisci con l'indirizzo del tuo endpoint
-    const URL = "https://jsonplaceholder.typicode.com/posts/1";//"http://192.168.1.11:1234/api"; // HTTPS NEEDED
+    //it is my local tailscale address...
+    const URL = "https://pc-andrea-win11.tail49644b.ts.net/api";
+
 
     var next_trips_list = "Premi START per richiedere il JSON";
 
@@ -33,7 +43,6 @@ class Get_next_trips_list extends WatchUi.View {
         time = time_arg;
 
         System.println(lat);
-        makeRequest();
     }
 
     function onLayout(dc) {
@@ -51,13 +60,12 @@ class Get_next_trips_list extends WatchUi.View {
 
         Communications.makeWebRequest(
             URL,
-            {},
-            /*{
+            {
                 "lat" => lat,
                 "lon" => lon,
                 "type" => type,
                 "time" => time
-            },*/
+            },
             options,
             method(:onReceive) //what happens when the rervers sends some kind of response
         );
@@ -72,7 +80,7 @@ class Get_next_trips_list extends WatchUi.View {
             or Null
     ) as Void  {
         if (responseCode == 200 && data != null) {
-            // La risposta viene mantenuta come testo grezzo
+
             next_trips_list = data.toString();
         } else {
             next_trips_list = "Errore HTTP: "
@@ -122,7 +130,7 @@ class Traquantopassa extends Application.AppBase {
             46.0675,
             11.1504,
             "U",
-            "2026-10-28T13:32:00Z"
+            "2026-10-28T16:32:00Z"
         );
         return [
             view,
