@@ -1,67 +1,349 @@
-[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Application,1,14,25]; ]
-import Toybox.Application;
-[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
-import Toybox.Lang;
-[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [WatchUi,3,14,21]; ]
-import Toybox.WatchUi;
-[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 5; @symbol_classdef = [traquantopassa_mcApp,5,6,26]; @symbol_extends<0> = [Application,5,35,46]; @symbol_extends<1> = [AppBase,5,47,54]; ]
-class traquantopassa_mcApp extends Application.AppBase {
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 5; ]
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Application,1,13,24]; ]
+using Toybox.Application;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 2; @symbol_usingdef<0> = [Toybox,2,6,12]; @symbol_usingdef<1> = [Communications,2,13,27]; ]
+using Toybox.Communications;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 3; @symbol_usingdef<0> = [Toybox,3,6,12]; @symbol_usingdef<1> = [Graphics,3,13,21]; ]
+using Toybox.Graphics;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 4; @symbol_usingdef<0> = [Toybox,4,6,12]; @symbol_usingdef<1> = [Lang,4,13,17]; ]
+using Toybox.Lang;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 5; @symbol_usingdef<0> = [Toybox,5,6,12]; @symbol_usingdef<1> = [System,5,13,19]; ]
+using Toybox.System;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 6; @symbol_usingdef<0> = [Toybox,6,6,12]; @symbol_usingdef<1> = [WatchUi,6,13,20]; ]
+using Toybox.WatchUi;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 7; @symbol_usingdef<0> = [Toybox,7,6,12]; @symbol_usingdef<1> = [PersistedContent,7,13,29]; ]
+using Toybox.PersistedContent;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 10; @symbol_classdef = [Get_next_trips_list,10,6,25]; @symbol_extends<0> = [WatchUi,10,34,41]; @symbol_extends<1> = [View,10,42,46]; ]
+class Get_next_trips_list extends WatchUi.View {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 10; ]
     <init> {
     }
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 5; ]
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 10; ]
     static
     <init> {
     }
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 7; @symbol_functiondef = [initialize,7,13,23]; ]
-    function initialize() as Void {
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_7_26_9_4_start:
-[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 8 8 ]
-        symbol [ AppBase %tmp.2 8 8 15 ];
-        %tmp.2 = getv ? :AppBase;
-        symbol [ initialize %tmp.3 8 16 26 ];
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 13; @position = 10; @symbol_constdef = [URL,13,10,13]; ]
+    const URL = "https://jsonplaceholder.typicode.com/posts/1";
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 15; @position = 8; @symbol_vardef = [next_trips_list,15,8,23]; ]
+    var next_trips_list = "Premi START per richiedere il JSON";
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 17; @position = 8; @symbol_vardef = [lat,17,8,11]; ]
+    var lat;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 18; @position = 8; @symbol_vardef = [lon,18,8,11]; ]
+    var lon;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 19; @position = 8; @symbol_vardef = [type,19,8,12]; ]
+    var type;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 20; @position = 8; @symbol_vardef = [time,20,8,12]; ]
+    var time;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 22; @symbol_functiondef = [initialize,22,13,23]; @symbol_param<0> = [lat_arg,23,8,15]; @symbol_param<0>_type<0> = [Lang,23,19,23]; @symbol_param<0>_type<1> = [Float,23,24,29]; @symbol_param<1> = [lon_arg,24,8,15]; @symbol_param<1>_type<0> = [Lang,24,19,23]; @symbol_param<1>_type<1> = [Float,24,24,29]; @symbol_param<2> = [type_arg,25,8,16]; @symbol_param<2>_type<0> = [Lang,25,20,24]; @symbol_param<2>_type<1> = [String,25,25,31]; @symbol_param<3> = [time_arg,26,8,16]; @symbol_param<3>_type<0> = [Lang,26,20,24]; @symbol_param<3>_type<1> = [String,26,25,31]; ]
+    function initialize(lat_arg as Lang.Float, lon_arg as Lang.Float, type_arg as Lang.String, time_arg as Lang.String) as Void {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_27_6_37_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 28 8 ]
+        symbol [ View %tmp.2 28 8 12 ];
+        %tmp.2 = getv ? :View;
+        symbol [ initialize %tmp.3 28 13 23 ];
         %tmp.3 = getv function %tmp.2 :initialize;
         invoke %tmp.2 %tmp.3();
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_7_26_9_4_stop:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 30 8 ]
+        %tmp.4 = lgetv %lat_arg;
+        symbol [ lat_arg %tmp.4 30 14 21 ];
+        symbol [ lat ? 30 8 11 ];
+        putv self :lat %tmp.4;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 31 8 ]
+        %tmp.5 = lgetv %lon_arg;
+        symbol [ lon_arg %tmp.5 31 14 21 ];
+        symbol [ lon ? 31 8 11 ];
+        putv self :lon %tmp.5;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 32 8 ]
+        %tmp.6 = lgetv %type_arg;
+        symbol [ type_arg %tmp.6 32 15 23 ];
+        symbol [ type ? 32 8 12 ];
+        putv self :type %tmp.6;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 33 8 ]
+        %tmp.7 = lgetv %time_arg;
+        symbol [ time_arg %tmp.7 33 15 23 ];
+        symbol [ time ? 33 8 12 ];
+        putv self :time %tmp.7;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 35 8 ]
+        symbol [ System %tmp.8 35 8 14 ];
+        %tmp.8 = getm $.Toybox.System;
+        symbol [ println %tmp.9 35 15 22 ];
+        %tmp.9 = getv function %tmp.8 :println;
+        symbol [ lat %tmp.11 35 23 26 ];
+        %tmp.11 = getv ? :lat;
+        invoke %tmp.8 %tmp.9(%tmp.11);
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 36 8 ]
+        %tmp.12 = self;
+        symbol [ makeRequest %tmp.13 36 8 19 ];
+        %tmp.13 = getv function %tmp.12 :makeRequest;
+        invoke %tmp.12 %tmp.13();
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_27_6_37_4_stop:
     }
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 12; @symbol_functiondef = [onStart,12,13,20]; @symbol_param<0> = [state,12,21,26]; @symbol_param<0>_type<0> = [Dictionary,12,30,40]; ]
-    function onStart(state as Dictionary or Null) as Void {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 39; @symbol_functiondef = [onLayout,39,13,21]; @symbol_param<0> = [dc,39,22,24]; ]
+    function onLayout(dc) {
     }
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 16; @symbol_functiondef = [onStop,16,13,19]; @symbol_param<0> = [state,16,20,25]; @symbol_param<0>_type<0> = [Dictionary,16,29,39]; ]
-    function onStop(state as Dictionary or Null) as Void {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 42; @symbol_functiondef = [makeRequest,42,13,24]; ]
+    function makeRequest() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_42_27_64_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 43 8 ]
+        %tmp.1 = "Richiesta in corso...";
+        symbol [ next_trips_list ? 43 8 23 ];
+        putv self :next_trips_list %tmp.1;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 44 8 ]
+        symbol [ WatchUi %tmp.2 44 8 15 ];
+        %tmp.2 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.3 44 16 29 ];
+        %tmp.3 = getv function %tmp.2 :requestUpdate;
+        invoke %tmp.2 %tmp.3();
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 46 8 ]
+        [ "C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_42_27_64_4_start" "C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_42_27_64_4_stop" ]
+        %options.1 = local;
+        symbol [ options %options.1 46 12 19 ];
+        %tmp.4 = newd 2;
+        %tmp.6 = const :method;
+        symbol [ method %tmp.6 47 13 19 const ];
+        symbol [ Communications %tmp.7 47 23 37 ];
+        %tmp.7 = getm $.Toybox.Communications;
+        symbol [ HTTP_REQUEST_METHOD_GET %tmp.8 47 38 61 ];
+        %tmp.8 = getv %tmp.7 :HTTP_REQUEST_METHOD_GET;
+        %tmp.9 = dup %tmp.4;
+        %tmp.10 = aputv %tmp.9 %tmp.6 %tmp.8;
+        %tmp.12 = const :responseType;
+        symbol [ responseType %tmp.12 48 13 25 const ];
+        symbol [ Communications %tmp.13 49 16 30 ];
+        %tmp.13 = getm $.Toybox.Communications;
+        symbol [ HTTP_RESPONSE_CONTENT_TYPE_JSON %tmp.14 49 31 62 ];
+        %tmp.14 = getv %tmp.13 :HTTP_RESPONSE_CONTENT_TYPE_JSON;
+        %tmp.15 = dup %tmp.10;
+        %tmp.16 = aputv %tmp.15 %tmp.12 %tmp.14;
+        lputv %options.1 %tmp.16;
+        symbol [ options %options.1 46 12 19 ];
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 52 8 ]
+        symbol [ Communications %tmp.17 52 8 22 ];
+        %tmp.17 = getm $.Toybox.Communications;
+        symbol [ makeWebRequest %tmp.18 52 23 37 ];
+        %tmp.18 = getv function %tmp.17 :makeWebRequest;
+        symbol [ URL %tmp.20 53 12 15 ];
+        %tmp.20 = getv ? :URL;
+        %tmp.21 = newd 0;
+        %tmp.22 = lgetv %options.1;
+        symbol [ options %tmp.22 61 12 19 ];
+        %tmp.23 = self;
+        symbol [ method %tmp.24 62 12 18 ];
+        %tmp.24 = getv function %tmp.23 :method;
+        %tmp.26 = const :onReceive;
+        symbol [ onReceive %tmp.26 62 20 29 const ];
+        %tmp.27 = invoke %tmp.23 %tmp.24(%tmp.26);
+        invoke %tmp.17 %tmp.18(%tmp.20, %tmp.21, %tmp.22, %tmp.27);
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_42_27_64_4_stop:
     }
-    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 20; @symbol_functiondef = [getInitialView,20,13,27]; @symbol_return<0> = [Views,20,34,39]; @symbol_return<1> = [Views,20,45,50]; @symbol_return<2> = [InputDelegates,20,52,66]; ]
-    function getInitialView() as [Views] or [Views, InputDelegates] {
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_20_68_22_4_start:
-[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 21 8 ]
-        %tmp.1 = newa 2;
-        symbol [ traquantopassa_mcView %tmp.5 21 21 42 ];
-        %tmp.5 = getv ? :traquantopassa_mcView;
-        %tmp.2 = newc %tmp.5 ();
-        %tmp.6 = dup %tmp.1;
-        %tmp.7 = aputv %tmp.6 0 %tmp.2;
-        symbol [ traquantopassa_mcDelegate %tmp.11 21 50 75 ];
-        %tmp.11 = getv ? :traquantopassa_mcDelegate;
-        %tmp.8 = newc %tmp.11 ();
-        %tmp.12 = dup %tmp.7;
-        %tmp.13 = aputv %tmp.12 1 %tmp.8;
-        ret %tmp.13;
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_20_68_22_4_stop:
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 66; @symbol_functiondef = [onReceive,66,13,22]; @symbol_param<0> = [responseCode,67,8,20]; @symbol_param<0>_type<0> = [Lang,67,24,28]; @symbol_param<0>_type<1> = [Number,67,29,35]; @symbol_param<1> = [data,68,8,12]; @symbol_param<1>_type<0> = [Lang,69,15,19]; @symbol_param<1>_type<1> = [String,69,20,26]; @symbol_param<1>_type<2> = [Lang,70,15,19]; @symbol_param<1>_type<3> = [Dictionary,70,20,30]; @symbol_param<1>_type<4> = [PersistedContent,71,15,31]; @symbol_param<1>_type<5> = [Iterator,71,32,40]; ]
+    function onReceive(responseCode as Lang.Number, data as Lang.String or Lang.Dictionary or PersistedContent.Iterator or Null) as Void {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_73_15_87_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 74 8 ]
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_stmt:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_12_74_43_begin:
+        %tmp.1 = lgetv %responseCode;
+        symbol [ responseCode %tmp.1 74 12 24 ];
+        %tmp.2 = 200;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bf %tmp.3 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_else_false;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_35_74_43_true:
+        %tmp.4 = lgetv %data;
+        symbol [ data %tmp.4 74 35 39 ];
+        %tmp.5 = null;
+        %tmp.6 = ne %tmp.4 %tmp.5;
+        push %tmp.6;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_35_74_43_end:
+        %tmp.7 = phi [%tmp.3 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_12_74_43_begin] [%tmp.6 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_35_74_43_true] [%tmp.7 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_35_74_43_end];
+        bf %tmp.7 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_else_false;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_true:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_49_77_8_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 76 12 ]
+        %tmp.8 = lgetv %data;
+        symbol [ data %tmp.8 76 30 34 ];
+        %tmp.9 = as %tmp.8 { (!Null) };
+        symbol [ toString %tmp.10 76 35 43 ];
+        %tmp.10 = getv function %tmp.9 :toString;
+        %tmp.11 = invoke %tmp.9 %tmp.10();
+        symbol [ next_trips_list ? 76 12 27 ];
+        putv self :next_trips_list %tmp.11;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_49_77_8_stop:
+        goto @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_end;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_else_false:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_77_15_84_8_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 78 12 ]
+        %tmp.12 = "Errore HTTP: ";
+        %tmp.13 = lgetv %responseCode;
+        symbol [ responseCode %tmp.13 79 18 30 ];
+        symbol [ toString %tmp.14 79 31 39 ];
+        %tmp.14 = getv function %tmp.13 :toString;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        %tmp.16 = add %tmp.12 %tmp.15;
+        symbol [ next_trips_list ? 78 12 27 ];
+        putv self :next_trips_list %tmp.16;
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 81 12 ]
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_12_83_12_if_stmt:
+        %tmp.17 = lgetv %data;
+        symbol [ data %tmp.17 81 16 20 ];
+        %tmp.18 = null;
+        %tmp.19 = ne %tmp.17 %tmp.18;
+        bf %tmp.19 @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_12_83_12_if_end;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_12_83_12_if_true:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_30_83_12_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 82 16 ]
+        symbol [ next_trips_list %tmp.20 82 16 31 ];
+        %tmp.20 = getv self :next_trips_list;
+        %tmp.21 = "\n";
+        %tmp.22 = lgetv %data;
+        symbol [ data %tmp.22 82 42 46 ];
+        %tmp.23 = as %tmp.22 { (!Null) };
+        symbol [ toString %tmp.24 82 47 55 ];
+        %tmp.24 = getv function %tmp.23 :toString;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        %tmp.26 = add %tmp.21 %tmp.25;
+        %tmp.27 = add %tmp.20 %tmp.26;
+        symbol [ next_trips_list ? 82 16 31 ];
+        putv self :next_trips_list dup %tmp.27;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_30_83_12_stop:
+        goto @C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_12_83_12_if_end;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_81_12_83_12_if_end:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_77_15_84_8_stop:
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_74_8_84_8_if_end:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 85 8 ]
+        symbol [ System %tmp.28 85 8 14 ];
+        %tmp.28 = getm $.Toybox.System;
+        symbol [ println %tmp.29 85 15 22 ];
+        %tmp.29 = getv function %tmp.28 :println;
+        symbol [ next_trips_list %tmp.31 85 23 38 ];
+        %tmp.31 = getv ? :next_trips_list;
+        invoke %tmp.28 %tmp.29(%tmp.31);
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 86 8 ]
+        symbol [ WatchUi %tmp.32 86 8 15 ];
+        %tmp.32 = getm $.Toybox.WatchUi;
+        symbol [ requestUpdate %tmp.33 86 16 29 ];
+        %tmp.33 = getv function %tmp.32 :requestUpdate;
+        invoke %tmp.32 %tmp.33();
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_73_15_87_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 89; @symbol_functiondef = [onUpdate,89,13,21]; @symbol_param<0> = [dc,89,22,24]; ]
+    function onUpdate(dc) {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_89_26_95_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 90 8 ]
+        %tmp.1 = lgetv %dc;
+        symbol [ dc %tmp.1 90 8 10 ];
+        symbol [ setColor %tmp.2 90 11 19 ];
+        %tmp.2 = getv function %tmp.1 :setColor;
+        symbol [ Graphics %tmp.3 91 12 20 ];
+        %tmp.3 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.4 91 21 32 ];
+        %tmp.4 = getv %tmp.3 :COLOR_WHITE;
+        symbol [ Graphics %tmp.5 92 12 20 ];
+        %tmp.5 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.6 92 21 32 ];
+        %tmp.6 = getv %tmp.5 :COLOR_BLACK;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.6);
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 94 8 ]
+        %tmp.7 = lgetv %dc;
+        symbol [ dc %tmp.7 94 8 10 ];
+        symbol [ clear %tmp.8 94 11 16 ];
+        %tmp.8 = getv function %tmp.7 :clear;
+        invoke %tmp.7 %tmp.8();
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_89_26_95_4_stop:
     }
 }
-[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 26; @symbol_functiondef = [getApp,26,9,15]; @symbol_return<0> = [traquantopassa_mcApp,26,21,41]; ]
-function getApp() as traquantopassa_mcApp {
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_26_42_28_0_start:
-[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 27 4 ]
-    symbol [ Application %tmp.1 27 11 22 ];
-    %tmp.1 = getm $.Toybox.Application;
-    symbol [ getApp %tmp.2 27 23 29 ];
-    %tmp.2 = getv function %tmp.1 :getApp;
-    %tmp.3 = invoke %tmp.1 %tmp.2();
-    %tmp.4 = as %tmp.3 traquantopassa_mcApp;
-    symbol [ traquantopassa_mcApp %tmp.4 27 35 55 ];
-    ret %tmp.4;
-C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_26_42_28_0_stop:
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 98; @symbol_classdef = [Buttons_handler,98,6,21]; @symbol_extends<0> = [WatchUi,98,30,37]; @symbol_extends<1> = [BehaviorDelegate,98,38,54]; ]
+class Buttons_handler extends WatchUi.BehaviorDelegate {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 98; ]
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 98; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 100; @position = 8; @symbol_vardef = [view,100,8,12]; ]
+    var view;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 102; @symbol_functiondef = [initialize,102,13,23]; @symbol_param<0> = [next_trips_list,102,24,39]; ]
+    function initialize(next_trips_list) as Void {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_102_41_105_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 103 8 ]
+        symbol [ BehaviorDelegate %tmp.2 103 8 24 ];
+        %tmp.2 = getv ? :BehaviorDelegate;
+        symbol [ initialize %tmp.3 103 25 35 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 104 8 ]
+        %tmp.4 = lgetv %next_trips_list;
+        symbol [ next_trips_list %tmp.4 104 15 30 ];
+        symbol [ view ? 104 8 12 ];
+        putv self :view %tmp.4;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_102_41_105_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 107; @symbol_functiondef = [onSelect,107,13,21]; ]
+    function onSelect() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_107_24_110_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 108 8 ]
+        symbol [ view %tmp.2 108 8 12 ];
+        %tmp.2 = getv ? :view;
+        symbol [ makeRequest %tmp.3 108 13 24 ];
+        %tmp.3 = getv function %tmp.2 :makeRequest;
+        invoke %tmp.2 %tmp.3();
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 109 8 ]
+        %tmp.4 = true;
+        ret %tmp.4;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_107_24_110_4_stop:
+    }
+}
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 113; @symbol_classdef = [Traquantopassa,113,6,20]; @symbol_extends<0> = [Application,113,29,40]; @symbol_extends<1> = [AppBase,113,41,48]; ]
+class Traquantopassa extends Application.AppBase {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 113; ]
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 113; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 115; @symbol_functiondef = [initialize,115,13,23]; ]
+    function initialize() as Void {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_115_26_118_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 116 8 ]
+        symbol [ AppBase %tmp.2 116 8 15 ];
+        %tmp.2 = getv ? :AppBase;
+        symbol [ initialize %tmp.3 116 16 26 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_115_26_118_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 120; @symbol_functiondef = [getInitialView,120,13,27]; ]
+    function getInitialView() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_120_30_131_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 121 8 ]
+        [ "C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_120_30_131_4_start" "C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_120_30_131_4_stop" ]
+        %view.1 = local;
+        symbol [ view %view.1 121 12 16 ];
+        symbol [ Get_next_trips_list %tmp.4 121 23 42 ];
+        %tmp.4 = getv ? :Get_next_trips_list;
+        %tmp.5 = 46.0675;
+        %tmp.6 = 11.1504;
+        %tmp.7 = "U";
+        %tmp.8 = "2026-10-28T13:32:00Z";
+        %tmp.1 = newc %tmp.4 (%tmp.5, %tmp.6, %tmp.7, %tmp.8);
+        lputv %view.1 %tmp.1;
+        symbol [ view %view.1 121 12 16 ];
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc" 127 8 ]
+        %tmp.9 = newa 2;
+        %tmp.10 = lgetv %view.1;
+        symbol [ view %tmp.10 128 12 16 ];
+        %tmp.11 = dup %tmp.9;
+        %tmp.12 = aputv %tmp.11 0 %tmp.10;
+        symbol [ Buttons_handler %tmp.16 129 16 31 ];
+        %tmp.16 = getv ? :Buttons_handler;
+        %tmp.17 = lgetv %view.1;
+        symbol [ view %tmp.17 129 32 36 ];
+        %tmp.13 = newc %tmp.16 (%tmp.17);
+        %tmp.18 = dup %tmp.12;
+        %tmp.19 = aputv %tmp.18 1 %tmp.13;
+        ret %tmp.19;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_traquantopassa_mcApp_mc_120_30_131_4_stop:
+    }
 }
 [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\traquantopassa.mcApp.mc"; @line = 1; ]
 <init> {
