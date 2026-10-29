@@ -1,0 +1,10 @@
+API win:
+    g++ server.cpp -o server.exe -lcurl
+    server.exe
+API linux:
+    g++ server.cpp -o server -lcurl
+    ./server
+
+tailscale local:
+    tailscale serve --bg http://127.0.0.1:1265
+    tailscale serve status
