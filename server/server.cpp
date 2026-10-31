@@ -23,100 +23,144 @@ int main() {
     //init server
     httplib::Server svr;
     //waits for the server to receive some data
+
+    //global curl structure
     CURLcode global_result; //response code from the server
     global_result = curl_global_init(CURL_GLOBAL_ALL);
+
+
+    //updates the stops and the routes on server startup so that all the following requests are serverd
+    update_stops_routes(true);
+
+    //initializes async function that loops forever to update the routes and stops periodically
+    std::future<int> stops_routes;
+    stops_routes = std::async(std::launch::async, update_stops_routes, false);
+
+
+    //waits for the server to receive some data
     svr.Get("/api", [](const httplib::Request &req, httplib::Response &res) {
-        //default variables in case the watch doesn't send some
-        //Urbano - server time - Piazza Dante Stazione Fs coords
-        
-        std::string type = "U";
-        std::string current_time = get_current_time(); //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0; problems with legal hour (garmin)
-        float lat = 46.0719f;
-        float lon = 11.1196f;
 
-        //curl structures
-        CURL *curl; //curl main structure
-        CURLcode result; //response code from the server
-        struct response chunk = { //will contain the response value that curl stores in a buffer
-            .memory = (char*)malloc(0),
-            .size = 0
-        };
-
-
-
-        //list with all the stops and trips
         json next_trips_list = json::array();
-        //initializes the closest stops
-        for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
-            next_trips_list += {
-                {"stopId", -1},
-                {"stopName", ""},
-                {"distance", -1},
-                {"nextTrips", json::array()}
-            };
-        }
 
+        server_job(req, res, next_trips_list);
 
-
-
-        //initial curl setup
-        curl = curl_easy_init();
-        curl_easy_setopt(curl, CURLOPT_USERNAME, USR.c_str());
-        curl_easy_setopt(curl, CURLOPT_PASSWORD, PSW.c_str());
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, from_curl_to_string);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-
-
-
-
-        //counter for the requests
-        count++;
-        if (count % 10 == 0) {
-            count = 0;
-            get_stops_list(curl, chunk, result);
-            get_routes_list(curl, chunk, result);
-        }
-
-        std::cout << "stops size: " << all_stops.size() << std::endl;
-        std::cout << "routes size: " << all_routes.size() << std::endl;
-
-
-
-        //checks the data in the request (if not present uses the default ones)
-        if (req.has_param("lat")) {
-            lat = stof(req.get_param_value("lat"));
-        }
-        if (req.has_param("lon")) {
-            lon = stof(req.get_param_value("lon"));
-        }
-        if (req.has_param("type")) {
-            type = req.get_param_value("type");
-        }
-        if (req.has_param("time")) {
-            current_time = req.get_param_value("time");
-        }
-
-
-        std::cout << "trips size: " << next_trips_list.size() << std::endl;
-
-        //gets the closest stops
-        get_closest_stops(lat, lon, type, next_trips_list);
-
-        std::cout << "trips size: " << next_trips_list.size() << std::endl;
-        //gets the next five trips from that stop
-        get_next_trips(curl, result, chunk, type, current_time, next_trips_list);
-
-        curl_easy_cleanup(curl);
-
-        //shows the stop code
-        std::cout << "trips size: " << next_trips_list.size() << std::endl;
-        
         res.set_content(to_string(next_trips_list), "application/json");
     });
 
     //starts the server
     svr.listen(HOST, PORT);
     curl_global_cleanup();
+}
+
+
+
+
+
+
+//MAIN SERVER FUNCTION
+
+void server_job(const httplib::Request &req, httplib::Response &res, json &next_trips_list) {
+    //default variables in case the watch doesn't send some
+    //Urbano - server time - Piazza Dante Stazione Fs coords
+
+    std::string type = "U";
+    std::string current_time = get_current_time(); //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0; problems with legal hour (garmin)
+    float lat = 46.0719f;
+    float lon = 11.1196f;
+
+    //curl structures
+    CURL *curl; //curl main structure
+    CURLcode result; //response code from the server
+    struct response chunk = { //will contain the response value that curl stores in a buffer
+        .memory = (char*)malloc(0),
+        .size = 0
+    };
+
+
+
+    //initializes the closest stops
+    for (int x = 0; x < MAX_CLOSEST_STOPS; x++) {
+        next_trips_list += {
+            {"stopId", -1},
+            {"stopName", ""},
+            {"distance", -1},
+            {"nextTrips", json::array()}
+        };
+    }
+
+
+
+
+    //initial curl setup
+    curl = curl_easy_init();
+    curl_easy_setopt(curl, CURLOPT_USERNAME, USR.c_str());
+    curl_easy_setopt(curl, CURLOPT_PASSWORD, PSW.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, from_curl_to_string);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+
+
+    //checks the data in the request (if not present uses the default ones)
+    if (req.has_param("lat")) {
+        lat = stof(req.get_param_value("lat"));
+    }
+    if (req.has_param("lon")) {
+        lon = stof(req.get_param_value("lon"));
+    }
+    if (req.has_param("type")) {
+        type = req.get_param_value("type");
+    }
+    if (req.has_param("time")) {
+        current_time = req.get_param_value("time");
+    }
+
+
+
+    //gets the closest stops
+    get_closest_stops(lat, lon, type, next_trips_list);
+
+    //gets the next five trips from that stop
+    get_next_trips(curl, result, chunk, type, current_time, next_trips_list);
+
+    curl_easy_cleanup(curl);
+
+}
+
+
+
+int update_stops_routes(bool first) {
+
+    //curl structures
+    CURL *curl; //curl main structure
+    CURLcode result; //response code from the server
+    struct response chunk = { //will contain the response value that curl stores in a buffer
+        .memory = (char*)malloc(0),
+        .size = 0
+    };
+
+
+    //initial curl setup
+    curl = curl_easy_init();
+    curl_easy_setopt(curl, CURLOPT_USERNAME, USR.c_str());
+    curl_easy_setopt(curl, CURLOPT_PASSWORD, PSW.c_str());
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, from_curl_to_string);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+
+    while (true) {
+        get_stops_list(curl, chunk, result);
+        get_routes_list(curl, chunk, result);
+        std::cout << "init sleep" << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(WAIT_FOR));
+        std::cout << "end sleep" << std::endl;
+        if (first) {
+            curl_easy_cleanup(curl);
+            return 1;
+        }
+    }
+
+    curl_easy_cleanup(curl);
+    return 0;
 }
 
 
@@ -167,8 +211,6 @@ void from_string_to_json(response &chunk, json &j) {
 }
 
 
-
-
 //gets all the stops
 void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
     std::cout << "GET stop LISTS" << std::endl;
@@ -177,10 +219,9 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
 
     json full_data;
     from_string_to_json(chunk, full_data);
-    
+
     all_stops = json::array();; //destructs the json before readding the stops
-    
-    
+
     for (const auto &el : full_data) {
         all_stops.push_back({
             {"stopId", el["stopId"]},
@@ -202,9 +243,8 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
     json full_data;
     from_string_to_json(chunk, full_data);
 
-    all_routes = json::array(); //destructs the json before readding the stops
-    
-    
+    all_routes = json::array(); //destructs the json before readding the routes
+
     for (const auto &el : full_data) {
         all_routes.push_back({
             {"routeId", el["routeId"]},

@@ -1,3 +1,9 @@
+#ifndef MAIN_LOOPS
+#define MAIN_LOOPS
+    void server_job(const httplib::Request &req, httplib::Response &res, json &next_trips_list);
+    int update_stops_routes(bool first);
+#endif
+
 #ifndef GENERIC_FUNCTIONS
 #define GENERIC_FUNCTIONS
     std::string get_current_time();

@@ -1,9 +1,17 @@
 //generic libraries
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <string>
 #include <cmath>
+
 #include <ctime>
+#include <chrono>
+
+//asynchronous libraries
+#include <thread>
+#include <future>
 
 //specific libraries
 #include <curl/curl.h>
