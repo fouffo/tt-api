@@ -1,10 +1,18 @@
 /*
-
 Problem: if you download the whole folder you can't compile because it uses absolute paths to my compiler
 (yes, you have full access to my file system structure)
-
-
 */
+//since for the developers it is single threaded but the default library is multithreaded
+//i have to pass the object making the request to the request function so that once it
+//starts the request it can call the method inside that class that handles the response
+//the point of passing me is that i want to keep executing the code only whey i have an
+//usable answare, so once the on_response is called it calls back this instance and keeps
+//going with it. for simplicity:
+//user presses play -> created Update... -> called make_request -> created Requests ->
+//called its make_request function -> makes the request -> calls on_receive to handle the
+//the response -> when it arrives, on_receive calls check from the Update... instance that
+//created Request
+
 
 
 using Toybox.Application;
@@ -15,146 +23,37 @@ using Toybox.System;
 using Toybox.WatchUi;
 using Toybox.PersistedContent;
 
-class Json_parser {
-    var json_data = "";
-    var str_data = "";
-    function initialize(str) {
-        str_data = str;
-    }
-    function to_json() as Lang.Dictionary {
-        return {"str" => str_data};
-    }
-}
+class Update_view extends WatchUi.View {
 
-class Requests {
-    var url = "";
-    var params = {};
-    var result = "";
-    var calling_instance;
-    function initialize(
-        request_url as Lang.String,
-        request_params as Lang.Dictionary
-    ) {
-        url = request_url;
-        params = request_params;
-    }
+    var text;
+    var full_data = {};
 
-    function make_request(calling_obj) {
-        calling_instance = calling_obj;
-
-        var options = {
-            :method => Communications.HTTP_REQUEST_METHOD_GET,
-            :responseType =>
-                Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
-        };
-
-        Communications.makeWebRequest(
-            url,
-            {
-                "lat" => params.get("lat"),
-                "lon" => params.get("lon"),
-                "type" => params.get("type"),
-                "time" => params.get("time")
-            },
-            options,
-            method(:on_receive) //what happens when the rervers sends some kind of response
-        );
-    }
-
-    function on_receive(
-        responseCode as Lang.Number,
-        data 
-            as Lang.String
-            or Lang.Dictionary
-            or PersistedContent.Iterator
-            or Null
-    ) as Void  {
-        //if request is ok
-        if (responseCode == 200 && data != null) {
-
-            result = data.toString();
-        }
-        //if something went wrong
-        else {
-            result = "Error: "
-                + responseCode.toString();
-
-            if (data != null) {
-                result += "\n" + data.toString();
-            }
-        }
-        calling_instance.check(); //see Update_trips_list_view.make_request() for an explanation
-    }
-
-    function get_result_as_string() as Lang.String {
-        return result;
-    }
-
-    function get_result_as_json() as Lang.Dictionary {
-        var result_json = new Json_parser(result);
-        return result_json.to_json();
-    }
-}
-
-class Update_trips_list_view extends WatchUi.View {
-
-    //it is my local tailscale address...
-    const URL = "https://pc-andrea-win11.tail49644b.ts.net/api";
-    var req;
-
-    var next_trips_list_str = "";
-
-    var args = {
-        "lat" => "",
-        "lon" => "",
-        "type" => "",
-        "time" => "",
-    };
-
-
-    function initialize(
-        lat as Lang.Float,
-        lon as Lang.Float,
-        type as Lang.String,
-        time as Lang.String
-    ) {
+    function initialize() {
         View.initialize();
-        //init args
-        args.put("lat", lat);
-        args.put("lon", lon);
-        args.put("type", type);
-        args.put("time", time);
     }
-
-
-    function make_request() {
-        req = new Requests(URL, args);
-        //since for the developers it is single threaded but the default library is multithreaded
-        //i have to pass the object making the request to the request function so that once it
-        //starts the request it can call the method inside that class that handles the response
-        //the point of passing me is that i want to keep executing the code only whey i have an
-        //usable answare, so once the on_response is called it calls back this instance and keeps
-        //going with it. for simplicity:
-        //user presses play -> created Update... -> called make_request -> created Requests ->
-        //called its make_request function -> makes the request -> calls on_receive to handle the
-        //the response -> when it arrives, on_receive calls check from the Update... instance that
-        //created Request
-        req.make_request(me); //me means exactly what you imagine
-
-    }
-
-    function check() {
-        //var str_data = req.get_result_as_string();
-        var json_data = req.get_result_as_json();
-        System.println(json_data);
-
+    
+    function new_data(dict) {   
+        full_data = dict;
+        reset_full_data();
         WatchUi.requestUpdate();
+    }
+
+    function reset_full_data() {
+        text.setText("new data");
     }
 
     function onLayout(dc) {
     }
 
-    
+    function onShow() as Void {
+        text = new Text({
+            :text=>"Hello World!",
+            :color=>Graphics.COLOR_WHITE,
+            :font=>Graphics.FONT_LARGE,
+            :locX =>WatchUi.LAYOUT_HALIGN_CENTER,
+            :locY=>WatchUi.LAYOUT_VALIGN_CENTER
+        });
+    }
 
     function onUpdate(dc) {
         dc.setColor(
@@ -162,12 +61,17 @@ class Update_trips_list_view extends WatchUi.View {
             Graphics.COLOR_BLACK
         );
         dc.clear();
+        if (text != null) {
+            text.draw(dc);
+        }
     }
 }
 
 class Buttons_handler extends WatchUi.BehaviorDelegate {
 
     var view;
+    var gps = new Gps(); //here there will be stored the gps class
+    var time = new Time();
 
     function initialize(get_next_trips_list_instance) {
         BehaviorDelegate.initialize();
@@ -175,7 +79,15 @@ class Buttons_handler extends WatchUi.BehaviorDelegate {
     }
 
     function onSelect() {
-        view.make_request(); //doesn't show anything
+        //depending on where is the current view there will be some ifs
+        var req = new Request_handler(
+            gps.get_lat(),
+            gps.get_lon(),
+            "U",
+            time.time_TT(),
+            view
+        );
+        req.make_request(); //doesn't show anything
         return true;
     }
 }
@@ -188,12 +100,7 @@ class Traquantopassa extends Application.AppBase {
     }
 
     function getInitialView() {
-        var view = new Update_trips_list_view(
-            46.0675,
-            11.1504,
-            "U",
-            "2026-10-30T16:32:00Z"
-        );
+        var view = new Update_view();
         return [
             view,
             new Buttons_handler(view)

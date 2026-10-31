@@ -1,0 +1,42 @@
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 1; @symbol_classdef = [Gps,1,6,9]; ]
+class Gps {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 1; ]
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 1; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 2; @position = 8; @symbol_vardef = [coords,2,8,14]; ]
+    var coords;
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 3; @symbol_functiondef = [initialize,3,13,23]; ]
+    function initialize() as Void {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 4; @symbol_functiondef = [update_location,4,13,28]; ]
+    function update_location() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_4_31_6_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc" 5 8 ]
+        %tmp.1 = "gps test";
+        ret %tmp.1;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_4_31_6_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 7; @symbol_functiondef = [get_lat,7,13,20]; ]
+    function get_lat() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_7_23_9_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc" 8 8 ]
+        %tmp.1 = 46.0675;
+        ret %tmp.1;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_7_23_9_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 10; @symbol_functiondef = [get_lon,10,13,20]; ]
+    function get_lon() {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_10_23_12_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc" 11 8 ]
+        %tmp.1 = 11.1504;
+        ret %tmp.1;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_gps_mc_10_23_12_4_stop:
+    }
+}
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\gps.mc"; @line = 1; ]
+<init> {
+}

@@ -23,9 +23,12 @@ int main() {
     //init server
     httplib::Server svr;
     //waits for the server to receive some data
+    CURLcode global_result; //response code from the server
+    global_result = curl_global_init(CURL_GLOBAL_ALL);
     svr.Get("/api", [](const httplib::Request &req, httplib::Response &res) {
         //default variables in case the watch doesn't send some
         //Urbano - server time - Piazza Dante Stazione Fs coords
+        
         std::string type = "U";
         std::string current_time = get_current_time(); //REMEMBER TO SUBTRACT 2H BECAUSE IT IS IN GMT+0; problems with legal hour (garmin)
         float lat = 46.0719f;
@@ -57,7 +60,6 @@ int main() {
 
 
         //initial curl setup
-        result = curl_global_init(CURL_GLOBAL_ALL);
         curl = curl_easy_init();
         curl_easy_setopt(curl, CURLOPT_USERNAME, USR.c_str());
         curl_easy_setopt(curl, CURLOPT_PASSWORD, PSW.c_str());
@@ -75,7 +77,8 @@ int main() {
             get_routes_list(curl, chunk, result);
         }
 
-
+        std::cout << "stops size: " << all_stops.size() << std::endl;
+        std::cout << "routes size: " << all_routes.size() << std::endl;
 
 
 
@@ -94,19 +97,26 @@ int main() {
         }
 
 
+        std::cout << "trips size: " << next_trips_list.size() << std::endl;
 
         //gets the closest stops
         get_closest_stops(lat, lon, type, next_trips_list);
 
+        std::cout << "trips size: " << next_trips_list.size() << std::endl;
         //gets the next five trips from that stop
         get_next_trips(curl, result, chunk, type, current_time, next_trips_list);
 
+        curl_easy_cleanup(curl);
+
         //shows the stop code
+        std::cout << "trips size: " << next_trips_list.size() << std::endl;
+        
         res.set_content(to_string(next_trips_list), "application/json");
     });
 
     //starts the server
     svr.listen(HOST, PORT);
+    curl_global_cleanup();
 }
 
 
@@ -167,7 +177,10 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
 
     json full_data;
     from_string_to_json(chunk, full_data);
-
+    
+    all_stops = json::array();; //destructs the json before readding the stops
+    
+    
     for (const auto &el : full_data) {
         all_stops.push_back({
             {"stopId", el["stopId"]},
@@ -177,6 +190,7 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
             {"type", el["type"]}
         });
     }
+    std::cout << all_stops.size() << std::endl;
 }
 
 //gets all the routes
@@ -188,6 +202,9 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
     json full_data;
     from_string_to_json(chunk, full_data);
 
+    all_routes = json::array(); //destructs the json before readding the stops
+    
+    
     for (const auto &el : full_data) {
         all_routes.push_back({
             {"routeId", el["routeId"]},
@@ -196,6 +213,7 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
             {"routeColor", el["routeColor"]}
         });
     }
+    std::cout << all_routes.size() << std::endl;
 }
 
 

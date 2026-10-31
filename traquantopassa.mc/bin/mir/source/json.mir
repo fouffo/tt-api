@@ -1,0 +1,42 @@
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 1; @symbol_usingdef<0> = [Toybox,1,6,12]; @symbol_usingdef<1> = [Lang,1,13,17]; ]
+using Toybox.Lang;
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 3; @symbol_classdef = [Json,3,6,10]; ]
+class Json {
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 3; ]
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 3; ]
+    static
+    <init> {
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 4; @position = 8; @symbol_vardef = [json_data,4,8,17]; ]
+    var json_data = "";
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 5; @position = 8; @symbol_vardef = [str_data,5,8,16]; ]
+    var str_data = "";
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 6; @symbol_functiondef = [initialize,6,13,23]; @symbol_param<0> = [str,6,24,27]; ]
+    function initialize(str) as Void {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_json_mc_6_29_8_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc" 7 8 ]
+        %tmp.1 = lgetv %str;
+        symbol [ str %tmp.1 7 19 22 ];
+        symbol [ str_data ? 7 8 16 ];
+        putv self :str_data %tmp.1;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_json_mc_6_29_8_4_stop:
+    }
+    [ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 9; @symbol_functiondef = [to_json,9,13,20]; @symbol_return<0> = [Lang,9,26,30]; @symbol_return<1> = [Dictionary,9,31,41]; ]
+    function to_json() as Lang.Dictionary {
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_json_mc_9_42_11_4_start:
+[ "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc" 10 8 ]
+        %tmp.1 = newd 1;
+        %tmp.2 = "str";
+        symbol [ str_data %tmp.4 10 25 33 ];
+        %tmp.4 = getv ? :str_data;
+        %tmp.5 = dup %tmp.1;
+        %tmp.6 = aputv %tmp.5 %tmp.2 %tmp.4;
+        ret %tmp.6;
+C__02_PROGETTI_PROGRAMMI_Garmin_traquantopassa_mc_traquantopassa_mc_source_json_mc_9_42_11_4_stop:
+    }
+}
+[ @file = "C:\02_PROGETTI\PROGRAMMI\Garmin\traquantopassa_mc\traquantopassa.mc\source\json.mc"; @line = 1; ]
+<init> {
+}
