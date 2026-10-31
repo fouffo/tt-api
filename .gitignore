@@ -1,0 +1,4 @@
+*.bak
+notes/
+traquantopassa.mc/.vscode/
+traquantopassa.mc/bin/
