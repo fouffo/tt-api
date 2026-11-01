@@ -24,7 +24,7 @@
 
     //vars for the api request for the stops and the routes
     char count = -1;
-    const int WAIT_FOR = 60*60*2;
+    const int WAIT_FOR = 60*60*3;
     json all_stops = json::array();
     json all_routes = json::array();
 

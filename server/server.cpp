@@ -15,8 +15,6 @@
 #include "./libraries/headers.h"
 
 
-
-
 //MAIN LOOP
 
 int main() {
@@ -29,12 +27,10 @@ int main() {
     global_result = curl_global_init(CURL_GLOBAL_ALL);
 
 
-    //updates the stops and the routes on server startup so that all the following requests are serverd
-    update_stops_routes(true);
 
     //initializes async function that loops forever to update the routes and stops periodically
     std::future<int> stops_routes;
-    stops_routes = std::async(std::launch::async, update_stops_routes, false);
+    stops_routes = std::async(std::launch::async, update_stops_routes);
 
 
     //waits for the server to receive some data
@@ -128,7 +124,7 @@ void server_job(const httplib::Request &req, httplib::Response &res, json &next_
 
 
 
-int update_stops_routes(bool first) {
+int update_stops_routes() {
 
     //curl structures
     CURL *curl; //curl main structure
@@ -153,10 +149,6 @@ int update_stops_routes(bool first) {
         std::cout << "init sleep" << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(WAIT_FOR));
         std::cout << "end sleep" << std::endl;
-        if (first) {
-            curl_easy_cleanup(curl);
-            return 1;
-        }
     }
 
     curl_easy_cleanup(curl);
@@ -220,7 +212,7 @@ void get_stops_list(CURL *curl, response &chunk, CURLcode &result) {
     json full_data;
     from_string_to_json(chunk, full_data);
 
-    all_stops = json::array();; //destructs the json before readding the stops
+    all_stops.clear(); //resets the json
 
     for (const auto &el : full_data) {
         all_stops.push_back({
@@ -243,7 +235,7 @@ void get_routes_list(CURL *curl, response &chunk, CURLcode &result) {
     json full_data;
     from_string_to_json(chunk, full_data);
 
-    all_routes = json::array(); //destructs the json before readding the routes
+    all_routes.clear(); //destructs the json before readding the routes
 
     for (const auto &el : full_data) {
         all_routes.push_back({
