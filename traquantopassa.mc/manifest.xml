@@ -21,6 +21,7 @@
             <iq:product id="d2mach2pro"/>
             <iq:product id="edge1040"/>
             <iq:product id="edge1050"/>
+            <iq:product id="edge1060"/>
             <iq:product id="edge540"/>
             <iq:product id="edge550"/>
             <iq:product id="edge840"/>
@@ -77,6 +78,7 @@
             <iq:product id="instincte45mm"/>
             <iq:product id="marq2"/>
             <iq:product id="marq2aviator"/>
+            <iq:product id="marq3"/>
             <iq:product id="venu3"/>
             <iq:product id="venu3s"/>
             <iq:product id="venu441mm"/>
@@ -96,6 +98,7 @@
             <iq:uses-permission id="Communications"/>
             <iq:uses-permission id="Fit"/>
             <iq:uses-permission id="Positioning"/>
+            <iq:uses-permission id="Sensor"/>
         </iq:permissions>
         <!--
             Use "Monkey C: Edit Languages" from the Visual Studio Code command
