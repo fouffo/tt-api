@@ -1,6 +1,6 @@
 using Toybox.Lang;
 
-class Json {
+class Build_menu {
     var json_data = "";
     var str_data = "";
     function initialize(str) {

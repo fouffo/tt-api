@@ -6,7 +6,7 @@ class Time_utils {
     function initialize() {}
     function time_utc(){
         time = Time.Gregorian.utcInfo(Time.now(), Time.FORMAT_SHORT);
-        return Lang.format(
+        var t = Lang.format(
             "$1$-$2$-$3$T$4$:$5$:$6$Z",
             [
                 time.year.format("%04d"),
@@ -17,6 +17,8 @@ class Time_utils {
                 time.sec.format("%02d")
             ]
         );
+        System.println(t);
+        return t;
     }
 
 }

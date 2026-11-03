@@ -1,6 +1,7 @@
 using Toybox.Lang;
 using Toybox.PersistedContent;
 using Toybox.Communications;
+using Toybox.Time;
 
 class Requests {
     //it is my local tailscale address...
@@ -44,6 +45,7 @@ class Requests {
             :responseType =>
                 Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
         };
+        System.println(("here"));
 
         Communications.makeWebRequest(
             URL,
@@ -64,21 +66,12 @@ class Requests {
         //if request is ok
         if (responseCode == 200 && data != null) {
 
-            res = data.toString();
+            res = data;
         }
         //if something went wrong
         else {
-            res = "Error: " + responseCode.toString();
-
-            if (data != null) {
-                res += "\n" + data.toString();
-            }
+            res = ["Error: " + responseCode.toString()];
         }
-        buttons_instance.update_data(me.get_result_as_json());
-    }
-
-    function get_result_as_json() as Lang.Dictionary {
-        var result_json = new Json(res);
-        return result_json.to_json();
+        buttons_instance.update_data(res);
     }
 }
