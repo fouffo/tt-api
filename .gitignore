@@ -1,3 +1,5 @@
+*.s
+*.asm
 *.bak
 notes/
 traquantopassa.mc/.vscode/
