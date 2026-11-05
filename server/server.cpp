@@ -1,6 +1,6 @@
 /*
  *
- * COMPILE STRING: g++ server.cpp -o server -lcurl && ./server
+ * COMPILE STRING: g++ server.cpp -o server -lcurl && ./server 
  *
  * The server must be accessible with an https request, so to test it you must:
  *    tailscale serve --bg http://127.0.0.1:1265
